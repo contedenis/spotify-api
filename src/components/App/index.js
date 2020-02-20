@@ -1,6 +1,11 @@
+// @packages
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+// @app
+import logo from 'assets/images/logo.svg';
+
+// @own
+import './styles.css';
 
 function App() {
   return (
