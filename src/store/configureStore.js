@@ -4,7 +4,7 @@ import createSagaMiddleware from 'redux-saga';
 
 // @own
 import rootReducer from './rootReducer';
-import rootSaga from './rootSaga';
+import rootSagas from './rootSagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -23,6 +23,6 @@ export default function configureStore(initialState = {}) {
     composeEnhancers(...enhancers),
   );
 
-  sagaMiddleware.run(rootSaga);
+  sagaMiddleware.run(rootSagas);
   return { store };
 }
