@@ -11,8 +11,6 @@ import {
   HeaderStyled,
   ImageStyled,
 } from './styles';
-import './styles.css';
-
 
 function App() {
   return (
