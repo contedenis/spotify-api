@@ -9,6 +9,7 @@ function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={App} />
+      <Route exact path="/callback" component={App} />
       <Route render={() => <h1>404: Page not found</h1>} />
     </Switch>
   );

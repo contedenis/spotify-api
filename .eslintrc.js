@@ -2,7 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    "jest": true,
+    jest: true,
   },
   extends: [
     'plugin:react/recommended',
@@ -26,7 +26,7 @@ module.exports = {
     "react/jsx-filename-extension": 0,
     "react/jsx-one-expression-per-line": 0,
   },
-  "settings": {
+  settings: {
     "import/resolver": {
       "node": {
         "paths": ["src"],

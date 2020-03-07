@@ -1,7 +1,12 @@
 // @packages
 import { combineReducers } from 'redux';
 
-const appReducer = combineReducers({});
+// @app
+import session from 'services/session/reducer';
+
+const appReducer = combineReducers({
+  session,
+});
 
 const rootReducer = (state, action) => appReducer(state, action);
 

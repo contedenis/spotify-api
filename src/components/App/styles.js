@@ -34,13 +34,27 @@ const ImageStyled = styled.img`
   }
 `;
 
-const AStyled = styled.a`
-  color: #61dafb;
+const ButtonStyled = styled.button`
+  background-color: #1db954;
+  border-color: #1aa34a;
+  border-radius: 500px;
+  border-width: 0;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  letter-spacing: 2px;
+  line-height: 1;
+  min-width: 160px;
+  padding: 11px 32px 9px;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: normal;
 `;
 
 
 export {
-  AStyled,
+  ButtonStyled,
   AppStyled,
   HeaderStyled,
   ImageStyled,
