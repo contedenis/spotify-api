@@ -9,7 +9,6 @@ import rootSagas from './rootSagas';
 const sagaMiddleware = createSagaMiddleware();
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
-
 export default function configureStore(initialState = {}) {
   const middlewares = [sagaMiddleware];
   const enhancers = [applyMiddleware(...middlewares)];
