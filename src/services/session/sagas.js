@@ -10,8 +10,17 @@ import {
   REDIRECT_URI,
   SCOPE,
 } from './constants';
-import { END_LOGIN_PROCESS, INIT_LOGIN_PROCESS } from './actionTypes';
-import { loginFail, loginSuccess } from './actions';
+import {
+  END_LOGIN_PROCESS,
+  INIT_LOGIN_PROCESS,
+  INIT_LOGOUT_PROCESS,
+} from './actionTypes';
+import {
+  loginFail,
+  loginSuccess,
+  logoutFail,
+  logoutSuccess,
+} from './actions';
 
 export function* initLoginProcessWorker({ payload: { state, stateKey } }) {
   try {
@@ -70,7 +79,27 @@ export function* endLoginProcessWatcher() {
   yield takeLatest(END_LOGIN_PROCESS, endLoginProcessWorker);
 }
 
+export function* initLogoutProcessWorker({ payload: { key } }) {
+  try {
+    const token = localStorage.getItem(key);
+
+    if (token) {
+      localStorage.removeItem(key);
+      yield put(logoutSuccess());
+    } else {
+      throw new Error(`${key} was not found`);
+    }
+  } catch ({ message }) {
+    yield put(logoutFail({ errorMessage: message }));
+  }
+}
+
+export function* initLogoutProcessWatcher() {
+  yield takeLatest(INIT_LOGOUT_PROCESS, initLogoutProcessWorker);
+}
+
 export default {
   endLoginProcessWatcher,
   initLoginProcessWatcher,
+  initLogoutProcessWatcher,
 };

@@ -4,16 +4,16 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // @app
-import { LOGGED_IN, SPOTIFY_STATE } from 'services/session/constants';
-import { selectSessionState } from 'services/session/selectors';
 import * as actions from 'services/session/actions';
+import LoginButton from 'components/LoginButton';
 import generateRandomString from 'utils/generateRandomString';
 import logo from 'assets/images/logo.svg';
+import { LOGGED_IN, SPOTIFY_STATE } from 'services/session/constants';
+import { selectSessionState } from 'services/session/selectors';
 
 // @own
 import {
   AppStyled,
-  ButtonStyled,
   HeaderStyled,
   ImageStyled,
 } from './styles';
@@ -21,6 +21,7 @@ import {
 function App({
   endLoginProcess,
   initLoginProcess,
+  initLogoutProcess,
   sessionState,
 }) {
   const [isLogged, setIsLogged] = useState(false);
@@ -45,16 +46,18 @@ function App({
   }
 
   function handleLogOutClick() {
-    return 'Log out';
+    initLogoutProcess({ key: 'token' });
   }
 
   return (
     <AppStyled>
       <HeaderStyled>
         <ImageStyled src={logo} className="App-logo" alt="logo" />
-        <ButtonStyled onClick={isLogged ? handleLogOutClick : handleLoginClick}>
-          {isLogged ? 'LOG OUT' : 'Login to Spotify'}
-        </ButtonStyled>
+        <LoginButton
+          handleLogOutClick={handleLogOutClick}
+          handleLoginClick={handleLoginClick}
+          isLogged={isLogged}
+        />
       </HeaderStyled>
     </AppStyled>
   );
