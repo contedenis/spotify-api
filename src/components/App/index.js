@@ -66,6 +66,7 @@ function App({
 App.propTypes = {
   endLoginProcess: PropTypes.func.isRequired,
   initLoginProcess: PropTypes.func.isRequired,
+  initLogoutProcess: PropTypes.func.isRequired,
   sessionState: PropTypes.string.isRequired,
 };
 

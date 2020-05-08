@@ -45,7 +45,7 @@ function loginFail({ errorMessage }) {
 function initLogoutProcess({ key }) {
   return {
     type: INIT_LOGOUT_PROCESS,
-    payload: key,
+    payload: { key },
   };
 }
 
