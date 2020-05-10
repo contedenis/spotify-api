@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 
 // @app
 import * as actions from 'services/session/actions';
-import Layout from 'components/Layout';
+import Layout from 'containers/Layout';
 import LoginButton from 'components/LoginButton';
 import generateRandomString from 'utils/generateRandomString';
 import logo from 'assets/images/logo.svg';
