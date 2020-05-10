@@ -6,8 +6,10 @@ import { connect } from 'react-redux';
 // @app
 import Card from 'components/Card';
 import Image from 'components/Image';
+import Spinner from 'components/Spinner';
 import {
   selectUserCountry,
+  selectUserFetching,
   selectUserImage,
   selectUserName,
 } from 'services/session/selectors';
@@ -20,15 +22,22 @@ import {
   TextContainer,
 } from './styles';
 
-function UserCard({ country, name, src }) {
+function UserCard({
+  country,
+  loading,
+  name,
+  src,
+}) {
   return (
     <Card>
       <ContainerStyled>
-        <Image src={src} type="circle" />
-        <TextContainer>
-          <NameText>{name}</NameText>
-          <CountryText>{country}</CountryText>
-        </TextContainer>
+        <Spinner loading={loading}>
+          <Image size={200} src={src} type="circle" />
+          <TextContainer>
+            <NameText>{name}</NameText>
+            <CountryText>{country}</CountryText>
+          </TextContainer>
+        </Spinner>
       </ContainerStyled>
     </Card>
   );
@@ -36,12 +45,14 @@ function UserCard({ country, name, src }) {
 
 UserCard.propTypes = {
   country: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   country: selectUserCountry(state),
+  loading: selectUserFetching(state),
   name: selectUserName(state),
   src: selectUserImage(state),
 });
