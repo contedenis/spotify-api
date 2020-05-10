@@ -1,5 +1,5 @@
 // @packages
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, call } from 'redux-saga/effects';
 import { cloneDeep } from 'lodash';
 
 // @own
@@ -12,17 +12,24 @@ import {
 } from './constants';
 import {
   END_LOGIN_PROCESS,
+  GET_USER,
   INIT_LOGIN_PROCESS,
   INIT_LOGOUT_PROCESS,
 } from './actionTypes';
 import {
+  getUser,
+  getUserFail,
+  getUserSuccess,
   loginFail,
   loginSuccess,
   logoutFail,
   logoutSuccess,
 } from './actions';
+import {
+  getUser as getUserApi,
+} from './api';
 
-export function* initLoginProcessWorker({ payload: { state, stateKey } }) {
+export function* initLoginProcessWorker({ payload: { location, state, stateKey } }) {
   try {
     localStorage.setItem(stateKey, state);
 
@@ -30,7 +37,7 @@ export function* initLoginProcessWorker({ payload: { state, stateKey } }) {
     ?response_type=token\
     &client_id=${encodeURIComponent(CLIENT_ID)}\
     &scope=${encodeURIComponent(SCOPE)}\
-    &redirect_uri=${encodeURIComponent(REDIRECT_URI)}\
+    &redirect_uri=${encodeURIComponent(`${REDIRECT_URI}${location}`)}\
     &state=${encodeURIComponent(state)}`.replace(/\s/g, '');
 
     window.location = url;
@@ -43,7 +50,7 @@ export function* initLoginProcessWatcher() {
   yield takeLatest(INIT_LOGIN_PROCESS, initLoginProcessWorker);
 }
 
-export function* endLoginProcessWorker({ payload: { hash, stateKey } }) {
+export function* endLoginProcessWorker({ payload: { hash, stateKey, onLogin } }) {
   try {
     const params = hash
       .substring(1)
@@ -68,6 +75,8 @@ export function* endLoginProcessWorker({ payload: { hash, stateKey } }) {
       if (accessToken) {
         localStorage.setItem('token', accessToken);
         yield put(loginSuccess());
+        yield put(getUser({ token: accessToken }));
+        onLogin();
       }
     }
   } catch ({ message }) {
@@ -79,13 +88,14 @@ export function* endLoginProcessWatcher() {
   yield takeLatest(END_LOGIN_PROCESS, endLoginProcessWorker);
 }
 
-export function* initLogoutProcessWorker({ payload: { key } }) {
+export function* initLogoutProcessWorker({ payload: { key, onLogout } }) {
   try {
     const token = localStorage.getItem(key);
 
     if (token) {
       localStorage.removeItem(key);
       yield put(logoutSuccess());
+      onLogout();
     } else {
       throw new Error(`${key} was not found`);
     }
@@ -98,8 +108,22 @@ export function* initLogoutProcessWatcher() {
   yield takeLatest(INIT_LOGOUT_PROCESS, initLogoutProcessWorker);
 }
 
+export function* getUserWorker({ payload: { token } }) {
+  try {
+    const payload = yield call(getUserApi, token);
+    yield put(getUserSuccess({ user: payload }));
+  } catch ({ message }) {
+    yield put(getUserFail({ errorMessage: message }));
+  }
+}
+
+export function* getUserWatcher() {
+  yield takeLatest(GET_USER, getUserWorker);
+}
+
 export default {
   endLoginProcessWatcher,
+  getUserWatcher,
   initLoginProcessWatcher,
   initLogoutProcessWatcher,
 };

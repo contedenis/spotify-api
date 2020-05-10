@@ -1,4 +1,7 @@
 export const END_LOGIN_PROCESS = 'END_LOGIN_PROCESS';
+export const GET_USER = 'GET_USER';
+export const GET_USER_FAIL = 'GET_USER_FAIL';
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const INIT_LOGIN_PROCESS = 'INIT_LOGIN_PROCESS';
 export const INIT_LOGOUT_PROCESS = 'INIT_LOGOUT_PROCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
