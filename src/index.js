@@ -7,8 +7,9 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 // @app
-import Routes from 'components/Routes';
 import './index.css';
+import AuthProvider from 'components/Context/Auth';
+import Routes from 'components/Routes';
 import * as serviceWorker from './serviceWorker';
 import configureStore from './store/configureStore';
 
@@ -17,9 +18,11 @@ const MOUNT_NODE = document.getElementById('root');
 
 ReactDOM.render((
   <Provider store={store}>
-    <Router>
-      <Routes />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes />
+      </Router>
+    </AuthProvider>
   </Provider>
 ), MOUNT_NODE);
 
