@@ -5,17 +5,19 @@ import PropTypes from 'prop-types';
 // @own
 import { ImageStyled } from './styles';
 
-function Image({ src, type }) {
+function Image({ size, src, type }) {
   return (
-    <ImageStyled src={src} type={type} />
+    <ImageStyled size={size} src={src} type={type} />
   );
 }
 
 Image.defaultProps = {
   type: 'circle',
+  size: 50,
 };
 
 Image.propTypes = {
+  size: PropTypes.number,
   src: PropTypes.string.isRequired,
   type: PropTypes.string,
 };
