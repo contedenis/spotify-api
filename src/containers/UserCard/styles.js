@@ -1,5 +1,21 @@
 // @packages
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+export const CardShow = keyframes`
+  0% {
+    transform: translate(0, 200px) scale(0.2);   
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1) rotateX(360deg);;
+  }
+`;
+
+const CardStyled = styled.div`
+  background: transparent;
+  animation: ${CardShow} .8s ease-out;
+`;
 
 const ContainerStyled = styled.div`
   display: flex;
@@ -29,6 +45,7 @@ const CountryText = styled.h5`
 `;
 
 export {
+  CardStyled,
   ContainerStyled,
   CountryText,
   NameText,

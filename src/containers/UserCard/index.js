@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // @app
-import Card from 'components/Card';
 import Image from 'components/Image';
-import Spinner from 'components/Spinner';
 import {
   selectUserCountry,
   selectUserFetching,
@@ -16,6 +14,7 @@ import {
 
 // @own
 import {
+  CardStyled,
   ContainerStyled,
   CountryText,
   NameText,
@@ -29,17 +28,19 @@ function UserCard({
   src,
 }) {
   return (
-    <Card>
-      <ContainerStyled>
-        <Spinner loading={loading}>
-          <Image size={200} src={src} type="circle" />
-          <TextContainer>
-            <NameText>{name}</NameText>
-            <CountryText>{country}</CountryText>
-          </TextContainer>
-        </Spinner>
-      </ContainerStyled>
-    </Card>
+    <>
+      {!loading && (
+        <CardStyled>
+          <ContainerStyled>
+            <Image size={200} src={src} type="circle" />
+            <TextContainer>
+              <NameText>{name}</NameText>
+              <CountryText>{country}</CountryText>
+            </TextContainer>
+          </ContainerStyled>
+        </CardStyled>
+      )}
+    </>
   );
 }
 
