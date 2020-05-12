@@ -10,17 +10,22 @@ import guitarVideo from 'assets/video/guitarMp4.mp4';
 // @own
 import { LayoutStyled } from './styles';
 
-function Layout({ children }) {
+function Layout({ children, logIn }) {
   return (
-    <LayoutStyled>
+    <LayoutStyled logIn={logIn}>
       <VideoFullscreen poster={guitarPoster} src={guitarVideo} />
       {children}
     </LayoutStyled>
   );
 }
 
+Layout.defaultProps = {
+  logIn: false,
+};
+
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  logIn: PropTypes.bool,
 };
 
 export default Layout;

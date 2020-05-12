@@ -42,7 +42,7 @@ function Login({
   }
 
   return (
-    <Layout>
+    <Layout logIn>
       <ImageStyled src={logo} className="App-logo" alt="logo" />
       <LoginButton
         handleLogOutClick={handleLogOutClick}
