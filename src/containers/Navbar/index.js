@@ -39,9 +39,13 @@ function Navbar({
     initLogoutProcess({ key: 'token', onLogout });
   }
 
+  function handleOnChipClick() {
+    setOpen(!open);
+  }
+
   return (
     <NavbarStyled>
-      <Chip onClick={() => setOpen(!open)}>
+      <Chip onClick={handleOnChipClick}>
         <Spinner loading={loading} size={15}>
           <Image src={src} size={30} type="circle" />
           <NameText>{name}</NameText>

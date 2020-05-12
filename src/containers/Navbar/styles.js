@@ -2,7 +2,6 @@
 import styled, { keyframes } from 'styled-components';
 
 const NavbarStyled = styled.div`
-  background: #1C2833;
   display: flex;
   justify-content: flex-end;
   position: fixed;
@@ -20,20 +19,21 @@ export const ChipShow = keyframes`
 `;
 
 const Chip = styled.div`
+  animation: ${ChipShow} .5s ease-in;
   background: rgb(232, 232, 232, 0.5);
   border-radius: 50px;
   cursor: pointer;
   display: flex;
-  margin: 5px 20px 5px 5px;
+  margin: 20px 20px 20px 5px;
   min-width: 100px;
   padding: 5px 10px 5px 5px;
   position: relative;
-  animation: ${ChipShow} .5s ease-in;
+  transition: background .2s ease-in;
 
   &:hover {
     background: rgb(232, 232, 232, 0.8);
-    transition: background .2s ease-in;
   }
+
 `;
 
 const NameText = styled.h5`
@@ -49,11 +49,11 @@ const NameText = styled.h5`
 
 export const PopupShow = keyframes`
   from {
-    top: 45px;
+    top: 65px;
     opacity: 0;
   }
   to {
-    top: 55px;
+    top: 75px;
     opacity: 1;
   }
 `;
@@ -65,7 +65,7 @@ const Popup = styled.div`
   border: 0;
   position: absolute;
   right: 20px;
-  top: 55px;
+  top: 75px;
   width: 100px;
 `;
 
