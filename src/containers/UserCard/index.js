@@ -25,12 +25,13 @@ function UserCard({
   country,
   loading,
   name,
+  onAnimationEnd,
   src,
 }) {
   return (
     <>
       {!loading && (
-        <CardStyled>
+        <CardStyled onAnimationEnd={onAnimationEnd}>
           <ContainerStyled>
             <Image size={200} src={src} type="circle" />
             <TextContainer>
@@ -44,10 +45,15 @@ function UserCard({
   );
 }
 
+UserCard.defaultProps = {
+  onAnimationEnd: () => undefined,
+};
+
 UserCard.propTypes = {
   country: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
+  onAnimationEnd: PropTypes.func,
   src: PropTypes.string.isRequired,
 };
 
