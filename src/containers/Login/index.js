@@ -14,7 +14,7 @@ import { SPOTIFY_STATE } from 'services/session/constants';
 import { useAuthContext } from 'components/Context/Auth';
 
 // @own
-import { ImageStyled } from './styles';
+import { ImageStyled, LogIn } from './styles';
 
 function Login({
   endLoginProcess,
@@ -43,12 +43,14 @@ function Login({
 
   return (
     <Layout logIn>
-      <ImageStyled src={logo} className="App-logo" alt="logo" />
-      <LoginButton
-        handleLogOutClick={handleLogOutClick}
-        handleLoginClick={handleLoginClick}
-        isLogged={authStatus}
-      />
+      <LogIn>
+        <ImageStyled src={logo} className="App-logo" alt="logo" />
+        <LoginButton
+          handleLogOutClick={handleLogOutClick}
+          handleLoginClick={handleLoginClick}
+          isLogged={authStatus}
+        />
+      </LogIn>
     </Layout>
   );
 }

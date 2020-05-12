@@ -19,6 +19,25 @@ const ImageStyled = styled.img`
   }
 `;
 
+export const LogInShow = keyframes`
+  0% {
+    transform: translate(0, -200px);   
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+`;
+
+const LogIn = styled.div`
+  align-items: center;
+  animation: ${LogInShow} .5s ease-in;
+  display: flex;
+  flex-direction: column;
+`;
+
 export {
   ImageStyled,
+  LogIn,
 };
