@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 
 export const RecentlyShow = keyframes`
   0% {
-    transform: translate(20px, 0);   
+    transform: translate(0, -30px);   
     opacity: 0;
   }
   100% {
@@ -15,8 +15,9 @@ export const RecentlyShow = keyframes`
 const RecentlyContainer = styled.div`
   animation: ${RecentlyShow} .5s ease-out;
   border-radius: 5px;
-  border: 1px solid white;
-  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px 20px 40px;
   width: 100%;
 `;
 

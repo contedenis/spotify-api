@@ -1,20 +1,31 @@
 // @packages
 import React from 'react';
-// import PropTypes from 'prop-types';
+
+// @app
+import useRecentlyPlayed from 'services/recently/useRecently';
+import RecentCard from 'containers/RecentCard';
 
 // @own
 import { RecentlyContainer } from './styles';
 
 function RecentlyListened() {
+  const {
+    // status,
+    data,
+    // error,
+    isFetching,
+  } = useRecentlyPlayed();
+
   return (
-    <RecentlyContainer />
+    <RecentlyContainer>
+      {!isFetching && data.map((item) => (
+        <RecentCard
+          name={item.name}
+          src={item.image}
+        />
+      ))}
+    </RecentlyContainer>
   );
 }
-
-// RecentlyListened.defaultProps = {
-// };
-
-// RecentlyListened.propTypes = {
-// };
 
 export default RecentlyListened;
