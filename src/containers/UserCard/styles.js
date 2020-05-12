@@ -16,14 +16,14 @@ const TextContainer = styled.div`
 `;
 
 const NameText = styled.h2`
-  color: #123622;
-  margin: 0;
   font-family: 'Montserrat', sans-serif;
+  font-size: 40px;
+  margin: 0;
 `;
 
 const CountryText = styled.h5`
-  color: #123622;
   font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
   margin: 0;
   text-align: right;
 `;
