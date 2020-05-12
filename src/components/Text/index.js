@@ -7,6 +7,7 @@ import { TextStyled } from './styles';
 
 function Text({
   children,
+  className,
   color,
   size,
   type,
@@ -14,6 +15,7 @@ function Text({
   return (
     <TextStyled
       as={type}
+      className={className}
       color={color}
       size={size}
     >
@@ -23,6 +25,7 @@ function Text({
 }
 
 Text.defaultProps = {
+  className: '',
   color: 'white',
   size: 12,
   type: 'h3',
@@ -30,6 +33,7 @@ Text.defaultProps = {
 
 Text.propTypes = {
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
   color: PropTypes.string,
   size: PropTypes.number,
   type: PropTypes.string,
