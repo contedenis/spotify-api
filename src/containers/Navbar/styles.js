@@ -5,10 +5,18 @@ const NavbarStyled = styled.div`
   background: #1C2833;
   display: flex;
   justify-content: flex-end;
-  left: 0;
-  position: absolute;
-  top: 0;
+  position: fixed;
   width: 100%;
+`;
+
+export const ChipShow = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: rotateY(360deg);
+  }
 `;
 
 const Chip = styled.div`
@@ -20,6 +28,7 @@ const Chip = styled.div`
   min-width: 100px;
   padding: 5px 10px 5px 5px;
   position: relative;
+  animation: ${ChipShow} .5s ease-in;
 
   &:hover {
     background: rgb(232, 232, 232, 0.8);
