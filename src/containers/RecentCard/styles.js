@@ -3,16 +3,7 @@ import styled, { keyframes } from 'styled-components';
 
 // @app
 import Text from 'components/Text';
-
-export const RecentCardAnimated = keyframes`
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-    transform: rotateZ(360deg);
-  }
-`;
+import Image from 'components/Image';
 
 const RecentCardStyled = styled.div`
   align-items: center;
@@ -26,8 +17,8 @@ const RecentCardStyled = styled.div`
   margin-right: 10px;
   padding: 20px 10px;
 
-  &:hover {
-    animation: ${RecentCardAnimated} .8s ease-in;
+  &:last-child {
+    margin-right: 0;
   }
 `;
 
@@ -38,7 +29,24 @@ const TextStyled = styled(Text)`
   word-break: break-word;
 `;
 
+export const ImageAnimated = keyframes`
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: rotateY(360deg);
+  }
+`;
+
+const ImageStyled = styled(Image)`
+  &:hover {
+    animation: ${ImageAnimated} .5s ease-in;
+  }
+`;
+
 export {
+  ImageStyled,
   RecentCardStyled,
   TextStyled,
 };
