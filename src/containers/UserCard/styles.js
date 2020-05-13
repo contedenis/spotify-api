@@ -3,12 +3,12 @@ import styled, { keyframes } from 'styled-components';
 
 export const CardShow = keyframes`
   0% {
-    transform: translate(0, 200px) scale(0.2);   
+    transform: scale(0.2);   
     opacity: 0;
   }
   100% {
     opacity: 1;
-    transform: translate(0, 0) scale(1) rotateX(360deg);;
+    transform: scale(1);
   }
 `;
 
