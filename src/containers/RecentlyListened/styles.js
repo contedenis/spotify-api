@@ -13,12 +13,20 @@ export const RecentlyShow = keyframes`
 `;
 
 const RecentlyContainer = styled.div`
-  animation: ${RecentlyShow} .5s ease-out;
+  animation: ${RecentlyShow} 1s ease-out;
   border-radius: 5px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   padding: 20px 40px 20px 40px;
   width: 100%;
 `;
 
-export { RecentlyContainer };
+const CardContainer = styled.div`
+  display: flex;
+  margin-top: 10px;
+`;
+
+export {
+  CardContainer,
+  RecentlyContainer,
+};

@@ -2,11 +2,15 @@
 import React from 'react';
 
 // @app
-import useRecentlyPlayed from 'services/recently/useRecently';
 import RecentCard from 'containers/RecentCard';
+import Text from 'components/Text';
+import useRecentlyPlayed from 'services/recently/useRecently';
 
 // @own
-import { RecentlyContainer } from './styles';
+import {
+  CardContainer,
+  RecentlyContainer,
+} from './styles';
 
 function RecentlyListened() {
   const {
@@ -18,12 +22,15 @@ function RecentlyListened() {
 
   return (
     <RecentlyContainer>
-      {!isFetching && data.map((item) => (
-        <RecentCard
-          name={item.name}
-          src={item.image}
-        />
-      ))}
+      <Text type="h3" size={42}>Recently listened albums</Text>
+      <CardContainer>
+        {!isFetching && data.map((item) => (
+          <RecentCard
+            name={item.name}
+            src={item.image}
+          />
+        ))}
+      </CardContainer>
     </RecentlyContainer>
   );
 }
