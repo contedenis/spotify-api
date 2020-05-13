@@ -9,24 +9,27 @@ const AlbumCardStyled = styled.div`
   align-items: center;
   background: rgb(255, 255, 255, .1);
   border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  justify-content: center;
+  height: 100%;
   margin-bottom: 10px;
   margin-right: 10px;
-  padding: 20px 10px;
+  overflow: hidden;
+  width: 150px;
 
   &:last-child {
     margin-right: 0;
   }
 `;
 
-const TextStyled = styled(Text)`
-  margin-top: 20px;
-  text-align: center;
+const TrackName = styled(Text)`
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
   text-shadow: 2px 2px 2px rgba(0,0,0, 0.2);
-  word-break: break-word;
+  white-space: nowrap;
+`;
+
+const AlbumName = styled(TrackName)`
+  margin-top: 5px;
 `;
 
 export const ImageAnimated = keyframes`
@@ -40,13 +43,23 @@ export const ImageAnimated = keyframes`
 `;
 
 const ImageStyled = styled(Image)`
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
   &:hover {
     animation: ${ImageAnimated} .5s ease-in;
   }
 `;
 
+const TextContent = styled.div`
+  overflow: hidden;
+  padding: 10px 10px 20px 10px;
+`;
+
 export {
   AlbumCardStyled,
+  AlbumName,
   ImageStyled,
-  TextStyled,
+  TextContent,
+  TrackName,
 };
