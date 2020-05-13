@@ -18,7 +18,6 @@ const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px 40px 20px 40px;
-  width: 100%;
 `;
 
 const CardContainer = styled.div`

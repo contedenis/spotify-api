@@ -22,12 +22,13 @@ function ListAlbums() {
 
   return (
     <ListContainer>
-      <Text type="h3" size={42}>Recently listened albums</Text>
+      <Text type="h3" size={42}>Recently Played Tracks</Text>
       <CardContainer>
         {!isFetching && data.map((item) => (
           <AlbumCard
             name={item.name}
             src={item.image}
+            trackName={item.trackName}
           />
         ))}
       </CardContainer>
