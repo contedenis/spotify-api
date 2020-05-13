@@ -25,7 +25,6 @@ const getRecentlyPlayed = async () => {
     return album;
   });
   const albumsFiltered = removeDuplicate(albums).slice(0, 6);
-  console.log({ albumsFiltered });
 
   return albumsFiltered;
 };
