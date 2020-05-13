@@ -5,7 +5,7 @@ import styled, { keyframes } from 'styled-components';
 import Text from 'components/Text';
 import Image from 'components/Image';
 
-const RecentCardStyled = styled.div`
+const AlbumCardStyled = styled.div`
   align-items: center;
   background: rgb(255, 255, 255, .1);
   border-radius: 5px;
@@ -46,7 +46,7 @@ const ImageStyled = styled(Image)`
 `;
 
 export {
+  AlbumCardStyled,
   ImageStyled,
-  RecentCardStyled,
   TextStyled,
 };

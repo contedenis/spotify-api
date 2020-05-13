@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 
 // @own
 import {
+  AlbumCardStyled,
   ImageStyled,
-  RecentCardStyled,
   TextStyled,
 } from './styles';
 
-function RecentCard({ src, name }) {
+function AlbumCard({ src, name }) {
   return (
-    <RecentCardStyled>
+    <AlbumCardStyled>
       <ImageStyled
         size={150}
         src={src}
@@ -20,13 +20,13 @@ function RecentCard({ src, name }) {
       <TextStyled type="h4" color="white" size={16}>
         {name}
       </TextStyled>
-    </RecentCardStyled>
+    </AlbumCardStyled>
   );
 }
 
-RecentCard.propTypes = {
+AlbumCard.propTypes = {
   name: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
 };
 
-export default RecentCard;
+export default AlbumCard;

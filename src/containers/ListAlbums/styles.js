@@ -1,7 +1,7 @@
 // @packages
 import styled, { keyframes } from 'styled-components';
 
-export const RecentlyShow = keyframes`
+export const ListShow = keyframes`
   0% {
     transform: translate(0, -30px);   
     opacity: 0;
@@ -12,8 +12,8 @@ export const RecentlyShow = keyframes`
   }
 `;
 
-const RecentlyContainer = styled.div`
-  animation: ${RecentlyShow} 1s ease-out;
+const ListContainer = styled.div`
+  animation: ${ListShow} 1s ease-out;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -28,5 +28,5 @@ const CardContainer = styled.div`
 
 export {
   CardContainer,
-  RecentlyContainer,
+  ListContainer,
 };

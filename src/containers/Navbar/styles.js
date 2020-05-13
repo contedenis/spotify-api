@@ -33,7 +33,6 @@ const Chip = styled.div`
   &:hover {
     background: rgb(232, 232, 232, 0.8);
   }
-
 `;
 
 const NameText = styled.h5`
