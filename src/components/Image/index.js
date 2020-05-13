@@ -24,7 +24,7 @@ function Image({
 Image.defaultProps = {
   className: '',
   size: 50,
-  type: 'circle',
+  type: null,
 };
 
 Image.propTypes = {
