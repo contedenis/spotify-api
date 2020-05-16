@@ -11,5 +11,7 @@ export const SCOPE = `
   user-read-recently-played
   user-read-playback-state
   user-top-read
+  user-modify-playback-state
+  streaming
 `;
 export const SPOTIFY_STATE = 'spotify_auth_state';

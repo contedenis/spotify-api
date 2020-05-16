@@ -1,10 +1,17 @@
 // @packages
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 // @app
 import AlbumCard from 'containers/AlbumCard';
 import Text from 'components/Text';
-import useRecentlyPlayed from 'services/recently/useRecently';
+import {
+  selectRecentlyListenedLoading,
+  selectRecentlyListened,
+} from 'services/recentlyListened/selectors';
+import * as actions from 'services/recentlyListened/actions';
+import { DEFAULT_PARAMS } from 'services/recentlyListened/constants';
 
 // @own
 import {
@@ -12,23 +19,21 @@ import {
   ListContainer,
 } from './styles';
 
-function ListAlbums() {
-  const {
-    // status,
-    data,
-    // error,
-    isFetching,
-  } = useRecentlyPlayed();
+function ListAlbums({ getRecentlyListened, isLoading, list }) {
+  useEffect(() => {
+    getRecentlyListened({ params: DEFAULT_PARAMS });
+  }, []);
 
   return (
     <ListContainer>
       <Text type="h3" size={42}>Recently Played Tracks</Text>
       <CardContainer>
-        {!isFetching && data.map((item) => (
+        {!isLoading && list.length > 0 && list.map((item) => (
           <AlbumCard
             name={item.name}
             src={item.image}
             trackName={item.trackName}
+            contextUri={item.contextUri}
           />
         ))}
       </CardContainer>
@@ -36,4 +41,20 @@ function ListAlbums() {
   );
 }
 
-export default ListAlbums;
+ListAlbums.defaultProps = {
+  isLoading: false,
+  list: [],
+};
+
+ListAlbums.propTypes = {
+  getRecentlyListened: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
+  list: PropTypes.array,
+};
+
+const mapStateToProps = (state) => ({
+  isLoading: selectRecentlyListenedLoading(state),
+  list: selectRecentlyListened(state),
+});
+
+export default connect(mapStateToProps, actions)(ListAlbums);
