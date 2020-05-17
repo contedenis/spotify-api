@@ -16,19 +16,20 @@ function formatList(list) {
     const {
       track: {
         album: {
-          id,
-          images,
-          name,
-          uri: contextUri,
-        }, name: trackName,
+          id: albumId,
+          images: albumImages,
+          name: albumName,
+          uri: albumContextUri,
+        },
+        name: trackName,
       },
     } = item;
     const album = {
+      albumContextUri,
+      albumId,
+      albumImage: albumImages.find((image) => image.width === 640).url,
+      albumName,
       trackName,
-      name,
-      id,
-      image: images.find((image) => image.width === 640).url,
-      contextUri,
     };
     return album;
   });
@@ -38,7 +39,7 @@ function formatList(list) {
 function removeDuplicate(list) {
   const formattedList = formatList(list.items);
   const listFiltered = formattedList.reduce((acc, actualItem) => {
-    if (!acc.some((item) => item.name === actualItem.name)) {
+    if (!acc.some((item) => item.albumName === actualItem.albumName)) {
       acc.push(actualItem);
     }
     return acc;

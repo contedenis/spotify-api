@@ -35,10 +35,11 @@ function ListAlbums({
       <CardContainer>
         {!isLoading && list.length > 0 && list.map((item) => (
           <AlbumCard
-            name={item.name}
-            src={item.image}
+            contextUri={item.albumContextUri}
+            key={item.albumId}
+            name={item.albumName}
+            src={item.albumImage}
             trackName={item.trackName}
-            contextUri={item.contextUri}
           />
         ))}
       </CardContainer>
