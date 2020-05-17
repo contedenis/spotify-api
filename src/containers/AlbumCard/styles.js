@@ -1,11 +1,12 @@
 // @packages
 import styled, { keyframes } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 // @app
 import Text from 'components/Text';
 import Image from 'components/Image';
 
-const AlbumCardStyled = styled.div`
+const AlbumCardStyled = styled(Link)`
   align-items: center;
   background: rgb(255, 255, 255, .1);
   border-radius: 5px;

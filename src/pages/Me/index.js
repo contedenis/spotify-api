@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 // @app
 import Layout from 'containers/Layout';
 import ListAlbums from 'containers/ListAlbums';
+import TracksList from 'containers/TracksList';
 import Navbar from 'containers/Navbar';
 import Playlists from 'containers/Playlists';
 import UserCard from 'containers/UserCard';
@@ -10,7 +11,7 @@ import UserCard from 'containers/UserCard';
 // @own
 import { GridStyled } from './styles';
 
-function Home() {
+function Me() {
   const [showRecently, setShowRecently] = useState(false);
   const [showPlaylists, setShowPlaylists] = useState(false);
 
@@ -21,9 +22,10 @@ function Home() {
         <UserCard onAnimationEnd={() => setShowRecently(true)} />
         {showRecently && <ListAlbums onAnimationEnd={() => setShowPlaylists(true)} />}
         {showPlaylists && <Playlists />}
+        <TracksList />
       </GridStyled>
     </Layout>
   );
 }
 
-export default Home;
+export default Me;

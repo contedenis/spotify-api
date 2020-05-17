@@ -1,6 +1,7 @@
 // @packages
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useRouteMatch } from 'react-router-dom';
 
 // @own
 import {
@@ -11,9 +12,15 @@ import {
   TrackName,
 } from './styles';
 
-function AlbumCard({ src, name, trackName }) {
+function AlbumCard({
+  albumId,
+  name,
+  src,
+  trackName,
+}) {
+  const { path } = useRouteMatch();
   return (
-    <AlbumCardStyled>
+    <AlbumCardStyled to={`${path}/recent-played?id=${albumId}`}>
       <ImageStyled
         size={150}
         src={src}
@@ -31,6 +38,7 @@ function AlbumCard({ src, name, trackName }) {
 }
 
 AlbumCard.propTypes = {
+  albumId: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
   trackName: PropTypes.string.isRequired,
