@@ -15,7 +15,7 @@ import {
 export function* getPlaylistsWorker({ payload: { params } }) {
   try {
     const payload = yield call(getPlaylists, params);
-    yield put(getPlaylistsSuccess({ list: payload }));
+    yield put(getPlaylistsSuccess({ list: payload.items }));
   } catch ({ message }) {
     yield put(getPlaylistsFail({ errorMessage: message }));
   }

@@ -5,7 +5,7 @@ import { errorHandler } from 'utils/errorHandler';
 export function getPlaylists(params) {
   const token = localStorage.getItem('token');
   return spotifyApi({
-    url: '/me/playlists',
+    url: 'me/playlists',
     headers: {
       Authorization: `Bearer ${token}`,
     },

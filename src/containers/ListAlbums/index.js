@@ -19,13 +19,18 @@ import {
   ListContainer,
 } from './styles';
 
-function ListAlbums({ getRecentlyListened, isLoading, list }) {
+function ListAlbums({
+  getRecentlyListened,
+  isLoading,
+  list,
+  onAnimationEnd,
+}) {
   useEffect(() => {
     getRecentlyListened({ params: DEFAULT_PARAMS });
   }, []);
 
   return (
-    <ListContainer>
+    <ListContainer onAnimationEnd={onAnimationEnd}>
       <Text type="h3" size={42}>Recently Played Tracks</Text>
       <CardContainer>
         {!isLoading && list.length > 0 && list.map((item) => (
@@ -50,6 +55,7 @@ ListAlbums.propTypes = {
   getRecentlyListened: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
   list: PropTypes.array,
+  onAnimationEnd: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

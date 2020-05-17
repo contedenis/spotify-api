@@ -13,5 +13,7 @@ export const SCOPE = `
   user-top-read
   user-modify-playback-state
   streaming
+  playlist-read-private
+  playlist-read-collaborative
 `;
 export const SPOTIFY_STATE = 'spotify_auth_state';
