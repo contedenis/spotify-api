@@ -39,7 +39,7 @@ function formatList(list) {
 function removeDuplicate(list) {
   const formattedList = formatList(list.items);
   const listFiltered = formattedList.reduce((acc, actualItem) => {
-    if (!acc.some((item) => item.albumName === actualItem.albumName)) {
+    if (!acc.some((item) => item.trackName === actualItem.trackName)) {
       acc.push(actualItem);
     }
     return acc;

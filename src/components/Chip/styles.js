@@ -6,7 +6,6 @@ const ChipStyled = styled.div`
   background: rgb(255,255,255, 0.8);
   padding: 5px 10px;
   width: fit-content;
-  margin: 5px;
 `;
 
 export {
