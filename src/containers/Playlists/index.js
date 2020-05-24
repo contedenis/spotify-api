@@ -21,13 +21,18 @@ import {
   ListContainer,
 } from './styles';
 
-function Playlists({ getPlaylists, isLoading, list }) { // eslint-disable-line
+function Playlists({
+  getPlaylists,
+  isLoading,
+  list,
+  onAnimationEnd,
+}) {
   useEffect(() => {
     getPlaylists({ params: DEFAULT_PARAMS });
   }, []);
 
   return (
-    <ListContainer>
+    <ListContainer onAnimationEnd={onAnimationEnd}>
       <Text type="h3" size={42}>Playlists</Text>
       <CardContainer>
         {!isLoading && list && list.length > 0 && list.map((item) => (
@@ -53,6 +58,7 @@ Playlists.propTypes = {
   getPlaylists: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
   list: PropTypes.array,
+  onAnimationEnd: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

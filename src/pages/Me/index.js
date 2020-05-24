@@ -14,6 +14,7 @@ import { GridStyled } from './styles';
 function Me() {
   const [showRecently, setShowRecently] = useState(false);
   const [showPlaylists, setShowPlaylists] = useState(false);
+  const [showTracklist, setShowTracklist] = useState(false);
 
   return (
     <Layout>
@@ -21,8 +22,8 @@ function Me() {
       <GridStyled>
         <UserCard onAnimationEnd={() => setShowRecently(true)} />
         {showRecently && <ListAlbums onAnimationEnd={() => setShowPlaylists(true)} />}
-        {showPlaylists && <Playlists />}
-        <TracksList />
+        {showPlaylists && <Playlists onAnimationEnd={() => setShowTracklist(true)} />}
+        {showTracklist && <TracksList />}
       </GridStyled>
     </Layout>
   );

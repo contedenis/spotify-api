@@ -13,8 +13,8 @@ export const CardShow = keyframes`
 `;
 
 const CardStyled = styled.div`
-  background: transparent;
   animation: ${CardShow} .8s ease-out;
+  background: transparent;
 `;
 
 const ContainerStyled = styled.div`

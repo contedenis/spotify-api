@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 
 // @app
 import * as actions from 'services/album/actions';
+import Image from 'components/Image';
 import Spinner from 'components/Spinner';
 import Text from 'components/Text';
-import headphones from 'assets/images/note_white.svg';
+import noteWhite from 'assets/images/note_white.svg';
+import player from 'assets/images/player.svg';
 import useQuery from 'hooks/useQuery';
 import {
   selectAlbum,
@@ -20,6 +22,8 @@ import {
   ChipsContainer,
   Container,
   Content,
+  EmptyState,
+  EmptyStateText,
   IconStyled,
   ImageStyled,
   PlayIconOutlinedStyled,
@@ -27,6 +31,7 @@ import {
   Track,
   TrackContainer,
   TrackContent,
+  TracksListStyled,
 } from './styles';
 
 function TracksList({ album, isLoading, getAlbum }) {
@@ -42,36 +47,47 @@ function TracksList({ album, isLoading, getAlbum }) {
   }, [id]);
 
   return (
-    <Container>
-      {isLoading ? (
-        <Spinner loading={isLoading} />
-      ) : (
-        <Content>
-          <ImageStyled src={hasTracks && album.images[0].url} size={400} />
-          <TrackContainer>
-            {hasTracks && album.tracks.map((track) => (
-              <Track
-                onMouseLeave={() => setTrackId(null)}
-                onMouseOver={() => setTrackId(track.id)}
-              >
-                {trackId === track.id
-                  ? <PlayIconStyled />
-                  : <PlayIconOutlinedStyled />}
-                <TrackContent>
-                  <Text type="h3" size={24}>{track.name}</Text>
-                  <ChipsContainer>
-                    {track.artists.map((artist) => (
-                      <ChipStyled size={10} text={artist.name} />
-                    ))}
-                  </ChipsContainer>
-                </TrackContent>
-                {trackId === track.id && <IconStyled src={headphones} size={50} />}
-              </Track>
-            ))}
-          </TrackContainer>
-        </Content>
-      )}
-    </Container>
+    <TracksListStyled>
+      <Container loading={isLoading}>
+        {id ? (
+          <>
+            {isLoading ? (
+              <Spinner loading={isLoading} />
+            ) : (
+              <Content>
+                <ImageStyled src={hasTracks && album.images[0].url} size={400} />
+                <TrackContainer>
+                  {hasTracks && album.tracks.map((track) => (
+                    <Track
+                      onMouseLeave={() => setTrackId(null)}
+                      onMouseOver={() => setTrackId(track.id)}
+                    >
+                      {trackId === track.id
+                        ? <PlayIconStyled />
+                        : <PlayIconOutlinedStyled />}
+                      <TrackContent>
+                        <Text type="h3" size={24}>{track.name}</Text>
+                        <ChipsContainer>
+                          {track.artists.map((artist) => (
+                            <ChipStyled size={10} text={artist.name} />
+                          ))}
+                        </ChipsContainer>
+                      </TrackContent>
+                      {trackId === track.id && <IconStyled src={noteWhite} size={50} />}
+                    </Track>
+                  ))}
+                </TrackContainer>
+              </Content>
+            )}
+          </>
+        ) : (
+          <EmptyState>
+            <Image src={player} size={300} />
+            <EmptyStateText type="h5" size={24}>no tracks found</EmptyStateText>
+          </EmptyState>
+        )}
+      </Container>
+    </TracksListStyled>
   );
 }
 
