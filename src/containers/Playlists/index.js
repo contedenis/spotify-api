@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useRouteMatch } from 'react-router-dom';
 
 // @app
 import Text from 'components/Text';
@@ -15,7 +16,10 @@ import { DEFAULT_PARAMS } from 'services/playlists/constants';
 // @own
 import {
   CardContainer,
-  Content,
+  FlipCard,
+  FlipCardFront,
+  FlipCardInner,
+  FlipCardBack,
   ContentImage,
   ContentText,
   ListContainer,
@@ -27,6 +31,7 @@ function Playlists({
   list,
   onAnimationEnd,
 }) {
+  const { path } = useRouteMatch();
   useEffect(() => {
     getPlaylists({ params: DEFAULT_PARAMS });
   }, []);
@@ -36,13 +41,20 @@ function Playlists({
       <Text type="h3" size={42}>Playlists</Text>
       <CardContainer>
         {!isLoading && list && list.length > 0 && list.map((item) => (
-          <Content key={item.id}>
-            <ContentImage
-              alt={item.type}
-              src={item.images[0].url}
-            />
-            <ContentText type="h5" size={16}>{item.name}</ContentText>
-          </Content>
+          <FlipCard key={item.id} to={`${path}/playlist?id=${item.id}`}>
+            <FlipCardInner>
+              <FlipCardFront>
+                <ContentImage
+                  alt={item.type}
+                  src={item.images[0].url}
+                  size={150}
+                />
+              </FlipCardFront>
+              <FlipCardBack>
+                <ContentText type="h5" size={16}>{item.name}</ContentText>
+              </FlipCardBack>
+            </FlipCardInner>
+          </FlipCard>
         ))}
       </CardContainer>
     </ListContainer>
