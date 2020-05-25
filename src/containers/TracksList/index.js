@@ -83,7 +83,7 @@ function TracksList({
                         <Text type="h3" size={24}>{track.name}</Text>
                         <ChipsContainer>
                           {track.artists.map((artist) => (
-                            <ChipStyled size={10} text={artist.name} />
+                            <ChipStyled ellipsis size={10} text={artist.name} />
                           ))}
                         </ChipsContainer>
                       </TrackContent>
