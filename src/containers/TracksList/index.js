@@ -22,8 +22,6 @@ import {
 
 // @own
 import {
-  ChipStyled,
-  ChipsContainer,
   Container,
   Content,
   EmptyState,
@@ -37,6 +35,7 @@ import {
   TrackContent,
   TracksListStyled,
 } from './styles';
+import Artists from './Artists';
 
 function TracksList({
   getPlaylistTracks,
@@ -80,12 +79,8 @@ function TracksList({
                         ? <PlayIconStyled />
                         : <PlayIconOutlinedStyled />}
                       <TrackContent>
-                        <Text type="h3" size={24}>{track.name}</Text>
-                        <ChipsContainer>
-                          {track.artists.map((artist) => (
-                            <ChipStyled ellipsis size={10} text={artist.name} />
-                          ))}
-                        </ChipsContainer>
+                        <Text ellipsis type="h3" size={24}>{track.name}</Text>
+                        <Artists track={track} />
                       </TrackContent>
                       {trackId === track.id && <IconStyled src={noteWhite} size={50} />}
                     </Track>

@@ -2,7 +2,6 @@
 import styled, { keyframes } from 'styled-components';
 
 // @app
-import Chip from 'components/Chip';
 import Image from 'components/Image';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PlayArrowOutlinedIcon from '@material-ui/icons/PlayArrowOutlined';
@@ -12,6 +11,7 @@ const TracksListStyled = styled.div`
   align-items: flex-end;
   display: flex;
   flex: 1;
+  width: 65%;
 `;
 
 const PlayIconAnimation = keyframes`
@@ -63,6 +63,7 @@ const Content = styled.div`
   animation: ${ContentAnimation} .5s ease-in;
   display: flex;
   flex: 1;
+  width: 100%;
 `;
 
 const BackgroundAnimation = keyframes`
@@ -95,10 +96,7 @@ const TrackContent = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 20px;
-`;
-
-const ChipsContainer = styled.div`
-  display: flex;
+  max-width: 600px;
 `;
 
 const ImageStyled = styled(Image)`
@@ -151,11 +149,6 @@ const IconStyled = styled(Image)`
   margin-left: 20px;
 `;
 
-const ChipStyled = styled(Chip)`
-  margin-right: 5px;
-  margin-top: 5px;
-`;
-
 const EmptyStateAnimation = keyframes`
   0%, 50%, 100% { transform: rotate(0); };
   25% { transform: rotate(25deg); };
@@ -177,8 +170,6 @@ const EmptyStateText = styled(Text)`
 `;
 
 export {
-  ChipStyled,
-  ChipsContainer,
   Container,
   Content,
   EmptyState,

@@ -9,6 +9,7 @@ function Text({
   children,
   className,
   color,
+  ellipsis,
   size,
   type,
 }) {
@@ -17,6 +18,7 @@ function Text({
       as={type}
       className={className}
       color={color}
+      ellipsis={ellipsis}
       size={size}
     >
       {children}
@@ -27,6 +29,7 @@ function Text({
 Text.defaultProps = {
   className: '',
   color: 'white',
+  ellipsis: false,
   size: 12,
   type: 'h3',
 };
@@ -34,6 +37,7 @@ Text.defaultProps = {
 Text.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  ellipsis: PropTypes.bool,
   color: PropTypes.string,
   size: PropTypes.number,
   type: PropTypes.string,
