@@ -5,13 +5,13 @@ import { combineReducers } from 'redux';
 import session from 'services/session/reducer';
 import recentlyListened from 'services/recentlyListened/reducer';
 import playlists from 'services/playlists/reducer';
-import album from 'services/album/reducer';
+import tracksList from 'services/tracksList/reducer';
 
 const appReducer = combineReducers({
   session,
   recentlyListened,
   playlists,
-  album,
+  tracksList,
 });
 
 const rootReducer = (state, action) => appReducer(state, action);

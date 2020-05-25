@@ -2,9 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 // @app
-import * as actions from 'services/album/actions';
+import {
+  getTracksList,
+  getPlaylistTracks,
+} from 'services/tracksList/actions';
 import Image from 'components/Image';
 import Spinner from 'components/Spinner';
 import Text from 'components/Text';
@@ -12,9 +16,9 @@ import noteWhite from 'assets/images/note_white.svg';
 import player from 'assets/images/player.svg';
 import useQuery from 'hooks/useQuery';
 import {
-  selectAlbum,
-  selectAlbumLoading,
-} from 'services/album/selectors';
+  selectTracksList,
+  selectTracksListLoading,
+} from 'services/tracksList/selectors';
 
 // @own
 import {
@@ -34,15 +38,25 @@ import {
   TracksListStyled,
 } from './styles';
 
-function TracksList({ album, isLoading, getAlbum }) {
+function TracksList({
+  getPlaylistTracks,
+  getTracksList,
+  isLoading,
+  tracksList,
+}) {
   const [trackId, setTrackId] = useState(false);
+  const { pathname } = useLocation();
   const query = useQuery();
   const id = query.get('id') || null;
-  const hasTracks = album && album.tracks && album.tracks.length > 0;
+  const hasTracks = tracksList && tracksList.tracks && tracksList.tracks.length > 0;
 
   useEffect(() => {
     if (id) {
-      getAlbum({ id });
+      if (pathname === '/me/recent-played') {
+        getTracksList({ id });
+      } else if (pathname === '/me/playlist') {
+        getPlaylistTracks({ id });
+      }
     }
   }, [id]);
 
@@ -55,9 +69,9 @@ function TracksList({ album, isLoading, getAlbum }) {
               <Spinner loading={isLoading} />
             ) : (
               <Content>
-                <ImageStyled src={hasTracks && album.images[0].url} size={400} />
+                <ImageStyled src={hasTracks && tracksList.images[0].url} size={400} />
                 <TrackContainer>
-                  {hasTracks && album.tracks.map((track) => (
+                  {hasTracks && tracksList.tracks.map((track) => (
                     <Track
                       onMouseLeave={() => setTrackId(null)}
                       onMouseOver={() => setTrackId(track.id)}
@@ -93,18 +107,19 @@ function TracksList({ album, isLoading, getAlbum }) {
 
 TracksList.defaultProps = {
   isLoading: false,
-  album: [],
+  tracksList: [],
 };
 
 TracksList.propTypes = {
-  album: PropTypes.array,
-  getAlbum: PropTypes.func.isRequired,
+  tracksList: PropTypes.array,
+  getTracksList: PropTypes.func.isRequired,
+  getPlaylistTracks: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
-  album: selectAlbum(state),
-  isLoading: selectAlbumLoading(state),
+  tracksList: selectTracksList(state),
+  isLoading: selectTracksListLoading(state),
 });
 
-export default connect(mapStateToProps, actions)(TracksList);
+export default connect(mapStateToProps, { getTracksList, getPlaylistTracks })(TracksList);

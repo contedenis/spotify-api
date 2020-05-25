@@ -28,6 +28,7 @@ module.exports = {
     "react/jsx-props-no-spreading": 0,
     "import/prefer-default-export": 0,
     "no-shadow": 0,
+    "jsx-a11y/mouse-events-have-key-events": 0,
   },
   settings: {
     "import/resolver": {
