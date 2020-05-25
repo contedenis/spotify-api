@@ -11,6 +11,15 @@ const initialState = {
   loading: false,
 };
 
+function removeEmpty(payload) {
+  return payload.reduce((acc, actualItem) => {
+    if (actualItem.tracks.total > 0) {
+      acc.push(actualItem);
+    }
+    return acc;
+  }, []);
+}
+
 export default function reducer(state = initialState, { type, payload }) {
   switch (type) {
     case GET_PLAYLISTS:
@@ -27,7 +36,7 @@ export default function reducer(state = initialState, { type, payload }) {
     case GET_PLAYLISTS_SUCCESS:
       return {
         ...state,
-        list: payload.list,
+        list: removeEmpty(payload.list),
         loading: false,
       };
     default:
