@@ -1,11 +1,12 @@
 // @own
 import {
-  GET_TRACKSLIST,
-  GET_TRACKSLIST_FAIL,
-  GET_TRACKSLIST_SUCCESS,
+  CLEAN_TRACKSLIST,
   GET_PLAYLIST_TRACKS,
   GET_PLAYLIST_TRACKS_FAIL,
   GET_PLAYLIST_TRACKS_SUCCESS,
+  GET_TRACKSLIST,
+  GET_TRACKSLIST_FAIL,
+  GET_TRACKSLIST_SUCCESS,
 } from './actionTypes';
 
 const initialState = {
@@ -14,11 +15,16 @@ const initialState = {
   loading: false,
 };
 
-function formatTracksList(tracksList) {
+function formatTracksList(payload, state) {
+  const { tracksList, nextPage } = payload;
   return ({
     images: tracksList.images,
     name: tracksList.name,
-    tracks: tracksList.tracks.items,
+    total: tracksList.total,
+    offset: tracksList.offset,
+    tracks: nextPage
+      ? state.tracks.concat(tracksList.tracks.items)
+      : tracksList.tracks.items,
   });
 }
 
@@ -27,7 +33,7 @@ export default function reducer(state = initialState, { type, payload }) {
     case GET_TRACKSLIST:
       return {
         ...state,
-        loading: true,
+        loading: !payload.nextPage,
       };
     case GET_TRACKSLIST_FAIL:
       return {
@@ -38,13 +44,13 @@ export default function reducer(state = initialState, { type, payload }) {
     case GET_TRACKSLIST_SUCCESS:
       return {
         ...state,
-        tracksList: formatTracksList(payload.tracksList),
+        tracksList: formatTracksList(payload, state.tracksList),
         loading: false,
       };
     case GET_PLAYLIST_TRACKS:
       return {
         ...state,
-        loading: true,
+        loading: !payload.nextPage,
       };
     case GET_PLAYLIST_TRACKS_FAIL:
       return {
@@ -55,8 +61,13 @@ export default function reducer(state = initialState, { type, payload }) {
     case GET_PLAYLIST_TRACKS_SUCCESS:
       return {
         ...state,
-        tracksList: formatTracksList(payload.tracksList),
+        tracksList: formatTracksList(payload, state.tracksList),
         loading: false,
+      };
+    case CLEAN_TRACKSLIST:
+      return {
+        ...state,
+        tracksList: {},
       };
     default:
       return state;
