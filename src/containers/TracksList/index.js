@@ -11,6 +11,7 @@ import {
   getTracksList,
 } from 'services/tracksList/actions';
 import Image from 'components/Image';
+import InfiniteScroll from 'components/InfiniteScroll';
 import Spinner from 'components/Spinner';
 import Text from 'components/Text';
 import noteWhite from 'assets/images/note_white.svg';
@@ -22,7 +23,7 @@ import {
   selectTracksListLoading,
   selectTracksListTotal,
 } from 'services/tracksList/selectors';
-import InfiniteScroll from 'components/InfiniteScroll';
+import PlayIcon from './PlayIcon';
 
 // @own
 import {
@@ -32,8 +33,6 @@ import {
   EmptyStateText,
   IconStyled,
   ImageStyled,
-  PlayIconOutlinedStyled,
-  PlayIconStyled,
   Track,
   TrackContainer,
   TrackContent,
@@ -83,48 +82,40 @@ function TracksList({
   return (
     <TracksListStyled>
       <Container loading={isLoading}>
-        {id ? (
-          <>
-            {isLoading ? (
-              <Spinner loading={isLoading} />
-            ) : (
-              <Content>
-                <ImageStyled src={hasTracks && tracksList.images[0].url} size={400} />
-                <TrackContainer id="MAIN_ID">
-                  {hasTracks && (
-                  <InfiniteScroll
-                    dataLength={tracksList.tracks.length}
-                    hasMore={total > tracksList.tracks.length}
-                    next={() => getAction(true)}
-                    scrollableTarget="MAIN_ID"
-                  >
-                    {tracksList.tracks.map((track) => (
-                      <Track
-                        onMouseLeave={() => setTrackId(null)}
-                        onMouseOver={() => setTrackId(track.id)}
-                      >
-                        {trackId === track.id
-                          ? <PlayIconStyled />
-                          : <PlayIconOutlinedStyled />}
-                        <TrackContent>
-                          <Text ellipsis type="h3" size={24}>{track.name}</Text>
-                          <Artists track={track} />
-                        </TrackContent>
-                        {trackId === track.id && <IconStyled src={noteWhite} size={50} />}
-                      </Track>
-                    ))}
-                  </InfiniteScroll>
-                  )}
-                </TrackContainer>
-              </Content>
-            )}
-          </>
-        ) : (
-          <EmptyState>
-            <Image src={player} size={300} />
-            <EmptyStateText type="h5" size={24}>no tracks found</EmptyStateText>
-          </EmptyState>
-        )}
+        <Spinner loading={isLoading}>
+          {id && hasTracks ? (
+            <Content>
+              <ImageStyled src={hasTracks && tracksList.images[0].url} size={400} />
+              <TrackContainer id="MAIN_ID">
+                <InfiniteScroll
+                  dataLength={tracksList.tracks.length}
+                  hasMore={total > tracksList.tracks.length}
+                  next={() => getAction(true)}
+                  scrollableTarget="MAIN_ID"
+                >
+                  {tracksList.tracks.map((track) => (
+                    <Track
+                      onMouseLeave={() => setTrackId(null)}
+                      onMouseOver={() => setTrackId(track.id)}
+                    >
+                      <PlayIcon track={track} trackId={trackId} />
+                      <TrackContent>
+                        <Text ellipsis type="h3" size={24}>{track.name}</Text>
+                        <Artists track={track} />
+                      </TrackContent>
+                      {trackId === track.id && <IconStyled src={noteWhite} size={50} />}
+                    </Track>
+                  ))}
+                </InfiniteScroll>
+              </TrackContainer>
+            </Content>
+          ) : (
+            <EmptyState>
+              <Image src={player} size={300} />
+              <EmptyStateText type="h5" size={24}>no tracks found</EmptyStateText>
+            </EmptyState>
+          )}
+        </Spinner>
       </Container>
     </TracksListStyled>
   );
