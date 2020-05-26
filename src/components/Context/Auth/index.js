@@ -9,7 +9,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // @app
-import { getUser, loginSuccess } from 'services/session/actions';
+import {
+  getAvailableDevices,
+  getUser,
+  loginSuccess,
+} from 'services/session/actions';
 
 export const AuthContext = createContext(null);
 
@@ -17,7 +21,11 @@ const initialAuthStatus = false;
 
 function AuthProvider(props) {
   const [authStatus, setAuthStatus] = useState(initialAuthStatus);
-  const { getUser: getUserAction, loginSuccess: loginSuccessAction } = props;
+  const {
+    getAvailableDevices: getAvailableDevicesAction,
+    getUser: getUserAction,
+    loginSuccess: loginSuccessAction,
+  } = props;
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -25,6 +33,7 @@ function AuthProvider(props) {
     if (token) {
       loginSuccessAction();
       getUserAction({ token });
+      getAvailableDevicesAction({ token });
       setAuthStatus(true);
     }
   }, []);
@@ -41,10 +50,11 @@ function AuthProvider(props) {
 }
 
 AuthProvider.propTypes = {
+  getAvailableDevices: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
   loginSuccess: PropTypes.func.isRequired,
 };
 
 export const useAuthContext = () => useContext(AuthContext);
 
-export default connect(null, { getUser, loginSuccess })(AuthProvider);
+export default connect(null, { getUser, loginSuccess, getAvailableDevices })(AuthProvider);

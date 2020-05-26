@@ -9,6 +9,16 @@ export function getUser(token) {
       Authorization: `Bearer ${token}`,
     },
   })
-    .then(({ data }) => data)
+    .then(({ data }) => data);
+}
+
+export function getAvailableDevices(token) {
+  return spotifyApi({
+    url: 'me/player/devices',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then(({ data }) => data.devices)
     .catch(errorHandler);
 }

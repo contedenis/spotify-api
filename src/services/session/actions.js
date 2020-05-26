@@ -1,6 +1,9 @@
 // @own
 import {
   END_LOGIN_PROCESS,
+  GET_AVAILABLE_DEVICES,
+  GET_AVAILABLE_DEVICES_FAIL,
+  GET_AVAILABLE_DEVICES_SUCCESS,
   GET_USER,
   GET_USER_FAIL,
   GET_USER_SUCCESS,
@@ -101,8 +104,38 @@ function getUserSuccess({ user }) {
   };
 }
 
+function getAvailableDevices({ token }) {
+  return {
+    type: GET_AVAILABLE_DEVICES,
+    payload: {
+      token,
+    },
+  };
+}
+
+function getAvailableDevicesFail({ errorMessage }) {
+  return {
+    type: GET_AVAILABLE_DEVICES_FAIL,
+    payload: {
+      errorMessage,
+    },
+  };
+}
+
+function getAvailableDevicesSuccess({ devices }) {
+  return {
+    type: GET_AVAILABLE_DEVICES_SUCCESS,
+    payload: {
+      devices,
+    },
+  };
+}
+
 export {
   endLoginProcess,
+  getAvailableDevices,
+  getAvailableDevicesFail,
+  getAvailableDevicesSuccess,
   getUser,
   getUserFail,
   getUserSuccess,

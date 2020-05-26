@@ -1,5 +1,8 @@
 // @own
 import {
+  GET_AVAILABLE_DEVICES,
+  GET_AVAILABLE_DEVICES_FAIL,
+  GET_AVAILABLE_DEVICES_SUCCESS,
   GET_USER,
   GET_USER_FAIL,
   GET_USER_SUCCESS,
@@ -13,6 +16,7 @@ import {
 import { FAIL, LOGGED_OUT, LOGGED_IN } from './constants';
 
 const initialState = {
+  availableDevices: [],
   loading: false,
   sessionState: LOGGED_OUT,
   user: {},
@@ -68,6 +72,17 @@ export default function reducer(state = initialState, { type, payload }) {
         ...state,
         errorMessage: payload.errorMessage,
         loading: false,
+      };
+    case GET_AVAILABLE_DEVICES:
+    case GET_AVAILABLE_DEVICES_SUCCESS:
+      return {
+        ...state,
+        availableDevices: payload.devices,
+      };
+    case GET_AVAILABLE_DEVICES_FAIL:
+      return {
+        ...state,
+        errorMessage: payload.errorMessage,
       };
     default:
       return state;

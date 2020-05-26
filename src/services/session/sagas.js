@@ -12,11 +12,14 @@ import {
 } from './constants';
 import {
   END_LOGIN_PROCESS,
+  GET_AVAILABLE_DEVICES,
   GET_USER,
   INIT_LOGIN_PROCESS,
   INIT_LOGOUT_PROCESS,
 } from './actionTypes';
 import {
+  getAvailableDevicesFail,
+  getAvailableDevicesSuccess,
   getUser,
   getUserFail,
   getUserSuccess,
@@ -27,6 +30,7 @@ import {
 } from './actions';
 import {
   getUser as getUserApi,
+  getAvailableDevices,
 } from './api';
 
 export function* initLoginProcessWorker({ payload: { location, state, stateKey } }) {
@@ -121,8 +125,22 @@ export function* getUserWatcher() {
   yield takeLatest(GET_USER, getUserWorker);
 }
 
+export function* getAvailableDevicesWorker({ payload: { token } }) {
+  try {
+    const payload = yield call(getAvailableDevices, token);
+    yield put(getAvailableDevicesSuccess({ devices: payload }));
+  } catch ({ message }) {
+    yield put(getAvailableDevicesFail({ errorMessage: message }));
+  }
+}
+
+export function* getAvailableDevicesWatcher() {
+  yield takeLatest(GET_AVAILABLE_DEVICES, getAvailableDevicesWorker);
+}
+
 export default {
   endLoginProcessWatcher,
+  getAvailableDevicesWatcher,
   getUserWatcher,
   initLoginProcessWatcher,
   initLogoutProcessWatcher,
