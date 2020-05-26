@@ -6,14 +6,14 @@ export const LOGGED_OUT = 'LOGGED_OUT';
 export const REDIRECCION_ERROR = 'There was an error during the redirection';
 export const REDIRECT_URI = 'http://localhost:3000';
 export const SCOPE = `
-  user-read-private
-  user-read-email
-  user-read-recently-played
-  user-read-playback-state
-  user-top-read
-  user-modify-playback-state
-  streaming
-  playlist-read-private
   playlist-read-collaborative
+  playlist-read-private
+  streaming
+  user-modify-playback-state
+  user-read-email
+  user-read-playback-state
+  user-read-private
+  user-read-recently-played
+  user-top-read
 `;
 export const SPOTIFY_STATE = 'spotify_auth_state';
