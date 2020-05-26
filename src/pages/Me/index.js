@@ -3,15 +3,17 @@ import React, { useState } from 'react';
 // @app
 import Layout from 'containers/Layout';
 import ListAlbums from 'containers/ListAlbums';
-import TracksList from 'containers/TracksList';
 import Navbar from 'containers/Navbar';
 import Playlists from 'containers/Playlists';
+import TracksList from 'containers/TracksList';
 import UserCard from 'containers/UserCard';
+import useSpotifySDK from 'hooks/useSpotifySDK';
 
 // @own
 import { GridStyled } from './styles';
 
 function Me() {
+  useSpotifySDK();
   const [showRecently, setShowRecently] = useState(false);
   const [showPlaylists, setShowPlaylists] = useState(false);
   const [showTracklist, setShowTracklist] = useState(false);
