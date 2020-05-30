@@ -13,6 +13,7 @@ import {
   LOGIN_SUCCESS,
   LOGOUT_FAIL,
   LOGOUT_SUCCESS,
+  SET_DEVICE_ID,
 } from './actionTypes';
 
 function initLoginProcess({ location, state, stateKey }) {
@@ -131,6 +132,15 @@ function getAvailableDevicesSuccess({ devices }) {
   };
 }
 
+function setDeviceId({ id }) {
+  return {
+    type: SET_DEVICE_ID,
+    payload: {
+      id,
+    },
+  };
+}
+
 export {
   endLoginProcess,
   getAvailableDevices,
@@ -145,4 +155,5 @@ export {
   loginSuccess,
   logoutFail,
   logoutSuccess,
+  setDeviceId,
 };

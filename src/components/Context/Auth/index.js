@@ -9,10 +9,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // @app
+import useSpotifySDK from 'hooks/useSpotifySDK';
 import {
   getAvailableDevices,
   getUser,
   loginSuccess,
+  setDeviceId,
 } from 'services/session/actions';
 
 export const AuthContext = createContext(null);
@@ -25,18 +27,26 @@ function AuthProvider(props) {
     getAvailableDevices: getAvailableDevicesAction,
     getUser: getUserAction,
     loginSuccess: loginSuccessAction,
+    setDeviceId: setDeviceIdAction,
   } = props;
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
     if (token) {
       loginSuccessAction();
       getUserAction({ token });
       getAvailableDevicesAction({ token });
       setAuthStatus(true);
     }
-  }, []);
+  }, [token]);
+
+  const deviceId = useSpotifySDK({ token });
+
+  useEffect(() => {
+    if (deviceId) {
+      setDeviceIdAction({ id: deviceId });
+    }
+  }, [deviceId]);
 
   const onLogout = () => setAuthStatus(initialAuthStatus);
   const onLogin = (newAuthStatus) => setAuthStatus(newAuthStatus);
@@ -53,8 +63,15 @@ AuthProvider.propTypes = {
   getAvailableDevices: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
   loginSuccess: PropTypes.func.isRequired,
+  setDeviceId: PropTypes.func.isRequired,
 };
 
 export const useAuthContext = () => useContext(AuthContext);
+const actions = {
+  getAvailableDevices,
+  getUser,
+  loginSuccess,
+  setDeviceId,
+};
 
-export default connect(null, { getUser, loginSuccess, getAvailableDevices })(AuthProvider);
+export default connect(null, actions)(AuthProvider);

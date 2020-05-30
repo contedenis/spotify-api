@@ -12,11 +12,13 @@ import {
   LOGIN_SUCCESS,
   LOGOUT_FAIL,
   LOGOUT_SUCCESS,
+  SET_DEVICE_ID,
 } from './actionTypes';
 import { FAIL, LOGGED_OUT, LOGGED_IN } from './constants';
 
 const initialState = {
   availableDevices: [],
+  deviceId: null,
   loading: false,
   sessionState: LOGGED_OUT,
   user: {},
@@ -83,6 +85,11 @@ export default function reducer(state = initialState, { type, payload }) {
       return {
         ...state,
         errorMessage: payload.errorMessage,
+      };
+    case SET_DEVICE_ID:
+      return {
+        ...state,
+        deviceId: payload.id,
       };
     default:
       return state;

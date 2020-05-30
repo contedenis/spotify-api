@@ -1,26 +1,48 @@
 // @packages
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-// @own
-import { scriptGenerator } from './spotifyScript';
+// @app
+import useScript from 'hooks/useScript';
 
-function useSpotifySDK() {
+function useSpotifySDK({ token }) {
+  const [loaded, error] = useScript('https://sdk.scdn.co/spotify-player.js');
+  const [deviceId, setDeviceId] = useState(null);
+
   useEffect(() => {
-    const scriptLibrary = document.createElement('script');
-    scriptLibrary.src = 'https://sdk.scdn.co/spotify-player.js';
-    document.body.appendChild(scriptLibrary);
+    if (loaded && !error) {
+      window.onSpotifyWebPlaybackSDKReady = () => {
+        const player = new window.Spotify.Player({
+          name: 'My Web Player',
+          getOAuthToken: (cb) => { cb(token); },
+        });
 
-    const token = localStorage.getItem('token');
-    const scriptInitSDK = document.createElement('script');
-    const newScript = scriptGenerator(JSON.stringify(token));
-    scriptInitSDK.appendChild(document.createTextNode(newScript));
-    document.body.appendChild(scriptInitSDK);
+        // Error handling
+        player.addListener('initialization_error', ({ message }) => { console.error(message); });
+        player.addListener('authentication_error', ({ message }) => { console.error(message); });
+        player.addListener('account_error', ({ message }) => { console.error(message); });
+        player.addListener('playback_error', ({ message }) => { console.error(message); });
 
-    return () => {
-      document.body.removeChild(scriptLibrary);
-      document.body.removeChild(scriptInitSDK);
-    };
-  }, []);
+        // Playback status updates
+        player.addListener('player_state_changed', (state) => { console.log(state); });
+
+        // Ready
+        player.addListener('ready', ({ device_id }) => {
+          setDeviceId(device_id);
+          console.log('Ready with Device ID', device_id);
+        });
+
+        // Not Ready
+        player.addListener('not_ready', ({ device_id }) => {
+          console.log('Device ID has gone offline', device_id);
+        });
+
+        // Connect to the player!
+        player.connect();
+      };
+    }
+  }, [loaded]);
+
+  return deviceId;
 }
 
 export default useSpotifySDK;
