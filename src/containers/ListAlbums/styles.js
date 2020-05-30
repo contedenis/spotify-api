@@ -17,6 +17,7 @@ const ListContainer = styled.div`
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   padding: 20px 40px 20px 40px;
 `;
 

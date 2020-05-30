@@ -15,6 +15,7 @@ export const CardShow = keyframes`
 const CardStyled = styled.div`
   animation: ${CardShow} .8s ease-out;
   background: transparent;
+  padding: 20px 40px 20px 40px;
 `;
 
 const ContainerStyled = styled.div`

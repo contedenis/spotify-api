@@ -5,8 +5,10 @@ import { connect } from 'react-redux';
 
 // @app
 import Image from 'components/Image';
+import ListDevices from 'containers/ListDevices';
 import {
   selectUserCountry,
+  selectUserDevices,
   selectUserFetching,
   selectUserImage,
   selectUserName,
@@ -23,6 +25,7 @@ import {
 
 function UserCard({
   country,
+  devices,
   loading,
   name,
   onAnimationEnd,
@@ -39,6 +42,7 @@ function UserCard({
               <CountryText>{country}</CountryText>
             </TextContainer>
           </ContainerStyled>
+          <ListDevices devices={devices} />
         </CardStyled>
       )}
     </>
@@ -51,6 +55,7 @@ UserCard.defaultProps = {
 
 UserCard.propTypes = {
   country: PropTypes.string.isRequired,
+  devices: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   onAnimationEnd: PropTypes.func,
@@ -59,6 +64,7 @@ UserCard.propTypes = {
 
 const mapStateToProps = (state) => ({
   country: selectUserCountry(state),
+  devices: selectUserDevices(state),
   loading: selectUserFetching(state),
   name: selectUserName(state),
   src: selectUserImage(state),
