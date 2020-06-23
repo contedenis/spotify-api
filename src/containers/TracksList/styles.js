@@ -36,20 +36,6 @@ const Content = styled.div`
   width: 100%;
 `;
 
-const BackgroundAnimation = keyframes`
-  0% { background: radial-gradient(circle, rgba(0,0,0, .0) 25%, rgba(255,255,255, .0)); }
-  10% { background: radial-gradient(circle, rgba(0,0,0, .1) 25%, rgba(255,255,255, .0)); }
-  20% { background: radial-gradient(circle, rgba(0,0,0, .2) 25%, rgba(255,255,255, .0)); }
-  30% { background: radial-gradient(circle, rgba(0,0,0, .3) 25%, rgba(255,255,255, .0)); }
-  40% { background: radial-gradient(circle, rgba(0,0,0, .4) 25%, rgba(255,255,255, .0)); }
-  50% { background: radial-gradient(circle, rgba(0,0,0, .5) 25%, rgba(255,255,255, .0)); }
-  60% { background: radial-gradient(circle, rgba(0,0,0, .6) 25%, rgba(255,255,255, .0)); }
-  70% { background: radial-gradient(circle, rgba(0,0,0, .7) 25%, rgba(255,255,255, .0)); }
-  80% { background: radial-gradient(circle, rgba(0,0,0, .8) 25%, rgba(255,255,255, .0)); }
-  90% { background: radial-gradient(circle, rgba(0,0,0, .9) 25%, rgba(255,255,255, .0)); }
-  100% { background: radial-gradient(circle, rgba(0,0,0, 1) 25%, rgba(255,255,255,0) 100%); }
-`;
-
 const Track = styled.div`
   align-items: center;
   cursor: pointer;
@@ -57,7 +43,6 @@ const Track = styled.div`
   padding: 10px 20px;
   
   &:hover {
-    animation: ${BackgroundAnimation} .5s ease-in;
     background: radial-gradient(circle, rgba(0,0,0, 1) 25%, rgba(255,255,255,0) 100%);
   }
 `;
@@ -98,27 +83,6 @@ const TrackContainer = styled.div`
   }
 `;
 
-export const IconAnimation = keyframes`
-  0% {  
-    opacity: .8;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-  100% {
-    opacity: .8;
-    transform: scale(1);
-  }
-`;
-
-const IconStyled = styled(Image)`
-  animation: ${IconAnimation} 1s ease-in infinite;
-  border-radius: 50px;
-  margin-left: 20px;
-`;
-
 const EmptyStateAnimation = keyframes`
   0%, 50%, 100% { transform: rotate(0); };
   25% { transform: rotate(25deg); };
@@ -144,7 +108,6 @@ export {
   Content,
   EmptyState,
   EmptyStateText,
-  IconStyled,
   ImageStyled,
   Track,
   TrackContainer,

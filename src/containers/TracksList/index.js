@@ -31,7 +31,6 @@ import {
   Content,
   EmptyState,
   EmptyStateText,
-  IconStyled,
   ImageStyled,
   Track,
   TrackContainer,
@@ -103,7 +102,6 @@ function TracksList({
                         <Text ellipsis type="h3" size={24}>{track.name}</Text>
                         <Artists track={track} />
                       </TrackContent>
-                      {trackId === track.id && <IconStyled src={noteWhite} size={50} />}
                     </Track>
                   ))}
                 </InfiniteScroll>
