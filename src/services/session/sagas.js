@@ -16,6 +16,7 @@ import {
   GET_USER,
   INIT_LOGIN_PROCESS,
   INIT_LOGOUT_PROCESS,
+  PUT_CURRENT_DEVICE,
 } from './actionTypes';
 import {
   getAvailableDevicesFail,
@@ -27,10 +28,13 @@ import {
   loginSuccess,
   logoutFail,
   logoutSuccess,
+  putCurrentDeviceFail,
+  putCurrentDeviceSuccess,
 } from './actions';
 import {
-  getUser as getUserApi,
   getAvailableDevices,
+  getUser as getUserApi,
+  putCurrentDevice,
 } from './api';
 
 export function* initLoginProcessWorker({ payload: { location, state, stateKey } }) {
@@ -138,10 +142,24 @@ export function* getAvailableDevicesWatcher() {
   yield takeLatest(GET_AVAILABLE_DEVICES, getAvailableDevicesWorker);
 }
 
+export function* putCurrentDeviceWorker({ payload: { deviceId } }) {
+  try {
+    yield call(putCurrentDevice, deviceId);
+    yield put(putCurrentDeviceSuccess());
+  } catch ({ message }) {
+    yield put(putCurrentDeviceFail({ errorMessage: message }));
+  }
+}
+
+export function* putCurrentDeviceWatcher() {
+  yield takeLatest(PUT_CURRENT_DEVICE, putCurrentDeviceWorker);
+}
+
 export default {
   endLoginProcessWatcher,
   getAvailableDevicesWatcher,
   getUserWatcher,
   initLoginProcessWatcher,
   initLogoutProcessWatcher,
+  putCurrentDeviceWatcher,
 };

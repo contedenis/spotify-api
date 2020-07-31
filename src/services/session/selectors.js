@@ -11,3 +11,4 @@ export const selectUserFetching = ({ session }) => get(session, 'loading', false
 export const selectUserId = ({ session }) => get(session, 'user.id', '');
 export const selectUserImage = ({ session }) => get(session, 'user.images[0].url', '');
 export const selectUserName = ({ session }) => get(session, 'user.display_name', '');
+export const selectDeviceId = ({ session }) => get(session, 'deviceId', null);

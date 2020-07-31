@@ -13,6 +13,9 @@ import {
   LOGIN_SUCCESS,
   LOGOUT_FAIL,
   LOGOUT_SUCCESS,
+  PUT_CURRENT_DEVICE,
+  PUT_CURRENT_DEVICE_FAIL,
+  PUT_CURRENT_DEVICE_SUCCESS,
   SET_DEVICE_ID,
 } from './actionTypes';
 
@@ -141,6 +144,30 @@ function setDeviceId({ id }) {
   };
 }
 
+function putCurrentDevice({ deviceId }) {
+  return {
+    type: PUT_CURRENT_DEVICE,
+    payload: {
+      deviceId,
+    },
+  };
+}
+
+function putCurrentDeviceFail({ errorMessage }) {
+  return {
+    type: PUT_CURRENT_DEVICE_FAIL,
+    payload: {
+      errorMessage,
+    },
+  };
+}
+
+function putCurrentDeviceSuccess() {
+  return {
+    type: PUT_CURRENT_DEVICE_SUCCESS,
+  };
+}
+
 export {
   endLoginProcess,
   getAvailableDevices,
@@ -155,5 +182,8 @@ export {
   loginSuccess,
   logoutFail,
   logoutSuccess,
+  putCurrentDevice,
+  putCurrentDeviceFail,
+  putCurrentDeviceSuccess,
   setDeviceId,
 };

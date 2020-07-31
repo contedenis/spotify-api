@@ -22,3 +22,21 @@ export function getAvailableDevices(token) {
     .then(({ data }) => data.devices)
     .catch(errorHandler);
 }
+
+export function putCurrentDevice(deviceId) {
+  const token = localStorage.getItem('token');
+  return spotifyApi({
+    url: 'me/player',
+    method: 'put',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      device_ids: [
+        deviceId,
+      ],
+    },
+  })
+    .then(({ data }) => data.devices)
+    .catch(errorHandler);
+}
