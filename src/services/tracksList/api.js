@@ -23,7 +23,7 @@ export function getPlaylistTracks(id, params) {
       Authorization: `Bearer ${token}`,
     },
     params: {
-      fields: 'items(track(artists,id,name,uri)),limit,offset,total',
+      fields: 'items(track(album,artists,id,name,uri,track_number)),limit,offset,total',
       ...params,
     },
   })

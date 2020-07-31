@@ -10,11 +10,11 @@ import {
   getPlaylistTracks,
   getTracksList,
 } from 'services/tracksList/actions';
+import { putPlay } from 'services/playing/actions';
 import Image from 'components/Image';
 import InfiniteScroll from 'components/InfiniteScroll';
 import Spinner from 'components/Spinner';
 import Text from 'components/Text';
-import noteWhite from 'assets/images/note_white.svg';
 import player from 'assets/images/player.svg';
 import useQuery from 'hooks/useQuery';
 import {
@@ -46,6 +46,7 @@ function TracksList({
   getTracksList,
   isLoading,
   offset,
+  putPlay,
   total,
   tracksList,
 }) {
@@ -78,6 +79,10 @@ function TracksList({
     }
   }, [id]);
 
+  function play() {
+    putPlay({ trackId });
+  }
+
   return (
     <TracksListStyled>
       <Container loading={isLoading}>
@@ -96,6 +101,7 @@ function TracksList({
                     <Track
                       onMouseLeave={() => setTrackId(null)}
                       onMouseOver={() => setTrackId(track.id)}
+                      onClick={() => play(track)}
                     >
                       <PlayIcon track={track} trackId={trackId} />
                       <TrackContent>
@@ -132,19 +138,21 @@ TracksList.propTypes = {
   getTracksList: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
   offset: PropTypes.number,
+  putPlay: PropTypes.func.isRequired,
   total: PropTypes.number,
   tracksList: PropTypes.array,
 };
 
 const mapStateToProps = (state) => ({
   isLoading: selectTracksListLoading(state),
+  offset: selectTrackListOffset(state),
   total: selectTracksListTotal(state),
   tracksList: selectTracksList(state),
-  offset: selectTrackListOffset(state),
 });
 
 export default connect(mapStateToProps, {
   cleanTracksList,
-  getTracksList,
   getPlaylistTracks,
+  getTracksList,
+  putPlay,
 })(TracksList);
