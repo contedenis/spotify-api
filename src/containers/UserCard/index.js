@@ -1,11 +1,12 @@
 // @packages
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 // @app
 import Image from 'components/Image';
 import ListDevices from 'containers/ListDevices';
+import { getAvailableDevices, getUser } from 'services/session/actions';
 import {
   selectUserCountry,
   selectUserDevices,
@@ -23,14 +24,27 @@ import {
   TextContainer,
 } from './styles';
 
-function UserCard({
-  country,
-  devices,
-  loading,
-  name,
-  onAnimationEnd,
-  src,
-}) {
+function UserCard({ onAnimationEnd }) {
+  const dispatch = useDispatch();
+  const country = useSelector(selectUserCountry);
+  const devices = useSelector(selectUserDevices, shallowEqual);
+  const loading = useSelector(selectUserFetching);
+  const name = useSelector(selectUserName);
+  const src = useSelector(selectUserImage);
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    dispatch(getUser({ token }));
+    dispatch(getAvailableDevices({ token }));
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(getAvailableDevices({ token }));
+    }, 5000);
+    return () => clearInterval(interval);
+  });
+
   return (
     <>
       {!loading && (
@@ -54,20 +68,7 @@ UserCard.defaultProps = {
 };
 
 UserCard.propTypes = {
-  country: PropTypes.string.isRequired,
-  devices: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
   onAnimationEnd: PropTypes.func,
-  src: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  country: selectUserCountry(state),
-  devices: selectUserDevices(state),
-  loading: selectUserFetching(state),
-  name: selectUserName(state),
-  src: selectUserImage(state),
-});
-
-export default connect(mapStateToProps, null)(UserCard);
+export default UserCard;
