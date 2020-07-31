@@ -13,4 +13,8 @@ const presets = [
   ],
 ];
 
-module.exports = { presets };
+const plugins = [
+  '"@babel/plugin-proposal-optional-chaining"',
+];
+
+module.exports = { presets, plugins };

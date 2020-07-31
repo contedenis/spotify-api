@@ -1,28 +1,47 @@
 // @packages
-import { put, takeLatest, call } from 'redux-saga/effects';
+import {
+  all,
+  call,
+  put,
+  select,
+  take,
+  takeLatest,
+} from 'redux-saga/effects';
 
-import {
-  getTrack as getTrackApi,
-} from 'services/track/api';
-import {
-  PUT_PLAY,
-} from './actionTypes';
+// @app
+import { GET_TRACK_SUCCESS } from 'services/track/actionTypes';
+import { PUT_CURRENT_DEVICE_SUCCESS } from 'services/session/actionTypes';
+import { getTrack } from 'services/track/actions';
+import { putCurrentDevice } from 'services/session/actions';
+import { selectContextUriTrack, selectTrackNumber } from 'services/track/selectors';
+import { selectDeviceId, selectUserDevices } from 'services/session/selectors';
 
-import {
-  putPlayFail,
-  putPlaySuccess,
-} from './actions';
-
-import {
-  putPlay as putPlayApi,
-} from './api';
+// @own
+import { PUT_PLAY } from './actionTypes';
+import { putPlay } from './api';
+import { putPlayFail, putPlaySuccess } from './actions';
 
 export function* putPlayWorker({ payload: { trackId } }) {
   try {
-    const track = yield call(getTrackApi, trackId);
-    const { data: { album: { uri }, track_number } } = track;
-    const payload = yield call(putPlayApi, uri, track_number);
-    yield put(putPlaySuccess({ result: payload }));
+    yield put(getTrack({ trackId }));
+    yield all([take(GET_TRACK_SUCCESS)]);
+    const deviceId = yield select(selectDeviceId);
+    const userDevices = yield select(selectUserDevices);
+    const isCurrenteDeviceActive = userDevices.find((device) => device.id === deviceId)?.is_active;
+
+    if (isCurrenteDeviceActive) {
+      const uri = yield select(selectContextUriTrack);
+      const trackNumber = yield select(selectTrackNumber);
+      const payload = yield call(putPlay, uri, trackNumber);
+      yield put(putPlaySuccess({ result: payload }));
+    } else {
+      yield put(putCurrentDevice({ deviceId }));
+      yield all([take(PUT_CURRENT_DEVICE_SUCCESS)]);
+      const uri = yield select(selectContextUriTrack);
+      const trackNumber = yield select(selectTrackNumber);
+      const payload = yield call(putPlay, uri, trackNumber);
+      yield put(putPlaySuccess({ result: payload }));
+    }
   } catch ({ message }) {
     yield put(putPlayFail({ errorMessage: message }));
   }
