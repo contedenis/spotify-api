@@ -9,16 +9,24 @@ import Navbar from 'containers/Navbar';
 import Playlists from 'containers/Playlists';
 import TracksList from 'containers/TracksList';
 import UserCard from 'containers/UserCard';
-import { putCurrentDevice } from 'services/session/actions';
+import { putCurrentDevice, getAvailableDevices } from 'services/session/actions';
 import { selectDeviceId } from 'services/session/selectors';
 
 // @own
 import { GridStyled } from './styles';
 
-function Me({ deviceId, putCurrentDevice }) {
+function Me({ deviceId, getAvailableDevices, putCurrentDevice }) {
+  const token = localStorage.getItem('token');
   const [showRecently, setShowRecently] = useState(false);
   const [showPlaylists, setShowPlaylists] = useState(false);
   const [showTracklist, setShowTracklist] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getAvailableDevices({ token });
+    }, 5000);
+    return () => clearInterval(interval);
+  });
 
   useEffect(() => {
     if (deviceId) {
@@ -48,4 +56,7 @@ const mapStateToProps = (state) => ({
   deviceId: selectDeviceId(state),
 });
 
-export default connect(mapStateToProps, { putCurrentDevice })(Me);
+export default connect(mapStateToProps, {
+  getAvailableDevices,
+  putCurrentDevice,
+})(Me);

@@ -76,6 +76,9 @@ export default function reducer(state = initialState, { type, payload }) {
         loading: false,
       };
     case GET_AVAILABLE_DEVICES:
+      return {
+        ...state,
+      };
     case GET_AVAILABLE_DEVICES_SUCCESS:
       return {
         ...state,
