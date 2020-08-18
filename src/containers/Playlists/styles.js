@@ -1,10 +1,10 @@
 // @packages
 import styled, { keyframes } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 // @app
 import Image from 'components/Image';
 import Text from 'components/Text';
-import { Link } from 'react-router-dom';
 
 export const ListShow = keyframes`
   0% {
@@ -24,6 +24,13 @@ const ListContainer = styled.div`
   flex-direction: column;
   padding: 20px 40px 20px 40px;
   width: 30%;
+
+  @media (max-width: 768px) {
+    margin-top: 20px;
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+  }
 `;
 
 const CardContainer = styled.div`
@@ -51,11 +58,33 @@ const CardContainer = styled.div`
       box-shadow:  0 0 6px rgba(0, 0, 0, 0.5);
     } 
   }
+
+  @media (max-width: 768px) {
+    overflow: overlay;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    &::-webkit-scrollbar-track {
+      background : rgb(255, 255, 255, .1);
+      border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background : rgb(0,255,255,0.8);
+      border-radius: 10px;
+      box-shadow:  0 0 6px rgba(0, 0, 0, 0.5);
+    } 
+  }
 `;
-
-
 const ContentImage = styled(Image)`
   border-radius: 5px;
+
+  @media (max-width: 480px) {
+    min-height: 75px;
+    min-width: 75px;
+    max-height: 75px;
+    max-width: 75px;
+  }
 `;
 
 const ContentText = styled(Text)`
@@ -87,6 +116,11 @@ const FlipCard = styled(Link)`
   &:hover ${FlipCardInner} {
     transform: rotateY(180deg);
   }
+
+  @media (max-width: 480px) {
+   height: 75px;
+   width: 75px;
+  }
 `;
 
 const FlipCardFront = styled.div`
@@ -116,13 +150,20 @@ const FlipCardBack = styled.div`
   width: 100%;
 `;
 
+const TextStyled = styled(Text)`
+  @media (max-width: 480px) {
+    font-size: 24px;
+  }
+`;
+
 export {
-  FlipCard,
-  FlipCardInner,
-  FlipCardFront,
-  FlipCardBack,
   CardContainer,
   ContentImage,
   ContentText,
+  FlipCard,
+  FlipCardBack,
+  FlipCardFront,
+  FlipCardInner,
   ListContainer,
+  TextStyled,
 };

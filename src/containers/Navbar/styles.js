@@ -1,11 +1,19 @@
 // @packages
 import styled, { keyframes } from 'styled-components';
 
+// @app
+import Image from 'components/Image';
+import Spinner from 'components/Spinner';
+
 const NavbarStyled = styled.div`
   display: flex;
   justify-content: flex-end;
   position: fixed;
   width: 100%;
+
+  @media (max-width: 768px) {
+    position: relative;
+  }
 `;
 
 export const ChipShow = keyframes`
@@ -33,6 +41,20 @@ const Chip = styled.div`
   &:hover {
     background: rgb(232, 232, 232, 0.8);
   }
+
+  @media (max-width: 768px) {
+    min-width: fit-content;
+    padding: 5px;
+  }
+`;
+
+const ImageStyled = styled(Image)`
+  @media (max-width: 768px) {
+    max-height: 15px;
+    max-width: 15px;
+    min-height: 15px;
+    min-width: 15px;
+  }
 `;
 
 const NameText = styled.h5`
@@ -44,15 +66,19 @@ const NameText = styled.h5`
   justify-content: center;
   margin: 0;
   margin-left: 10px;
+
+  @media (max-width: 768px) {
+    font-size: 8px;
+  }
 `;
 
 export const PopupShow = keyframes`
   from {
-    top: 65px;
+    top: 45px;
     opacity: 0;
   }
   to {
-    top: 75px;
+    top: 50px;
     opacity: 1;
   }
 `;
@@ -66,6 +92,11 @@ const Popup = styled.div`
   right: 20px;
   top: 75px;
   width: 100px;
+
+  @media (max-width: 480px) {
+    top: 50px;
+    width: fit-content;
+  }
 `;
 
 const PopupText = styled.h5`
@@ -75,12 +106,27 @@ const PopupText = styled.h5`
   margin: 0px;
   padding: 10px;
   text-align: center;
+
+  @media (max-width: 480px) {
+    font-size: 8px;
+  }
+`;
+
+const SpinnerStyled = styled(Spinner)`
+  &:after {
+    @media (max-width: 480px) {
+      height: 5px;
+      width: 5px;
+    }
+  }
 `;
 
 export {
   Chip,
+  ImageStyled,
   NameText,
   NavbarStyled,
   Popup,
   PopupText,
+  SpinnerStyled,
 };

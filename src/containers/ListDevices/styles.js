@@ -10,6 +10,10 @@ const Container = styled.div`
   justify-content: space-evenly;
   margin-top: 20px;
   padding: 15px 20px;
+
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 `;
 
 const iconsStyled = `
@@ -22,10 +26,18 @@ const iconsStyled = `
 
 const ComputerStyled = styled(Computer)`
   ${iconsStyled};
+
+  @media (max-width: 768px) {
+    font-size: 20px !important;
+  }
 `;
 
 const PhoneStyled = styled(Phone)`
   ${iconsStyled};
+
+  @media (max-width: 768px) {
+    font-size: 20px !important;
+  }
 `;
 
 export {

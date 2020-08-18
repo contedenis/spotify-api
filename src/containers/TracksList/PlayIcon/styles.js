@@ -19,6 +19,11 @@ const iconStyles = `
   background: black;
   border-radius: 50px;
   font-size: 50px !important;
+
+  @media (max-width: 480px) {
+    height: 0.7em !important;
+    width: 0.7em !important;
+  }
 `;
 
 const PlayIconStyled = styled(PlayArrowIcon)`

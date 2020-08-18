@@ -2,11 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// @app
-import Text from 'components/Text';
-
 // @own
-import { ChipStyled } from './styles';
+import {
+  ChipStyled,
+  TextStyled,
+} from './styles';
 
 function Chip({
   className,
@@ -16,14 +16,14 @@ function Chip({
 }) {
   return (
     <ChipStyled className={className}>
-      <Text
+      <TextStyled
         color="black"
         ellipsis={ellipsis}
         size={size}
         type="h5"
       >
         {text}
-      </Text>
+      </TextStyled>
     </ChipStyled>
   );
 }

@@ -5,22 +5,29 @@ import PropTypes from 'prop-types';
 // @own
 import { SpinnerStyled } from './styles';
 
-function Spinner({ size, children, loading }) {
+function Spinner({
+  children,
+  className,
+  loading,
+  size,
+}) {
   return (
     <>
-      {loading ? <SpinnerStyled size={size} /> : children}
+      {loading ? <SpinnerStyled className={className} size={size} /> : children}
     </>
   );
 }
 
 Spinner.defaultProps = {
   children: null,
+  className: '',
   loading: false,
   size: 50,
 };
 
 Spinner.propTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
   loading: PropTypes.bool,
   size: PropTypes.number,
 };

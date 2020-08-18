@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 // @app
-import Image from 'components/Image';
-import ListDevices from 'containers/ListDevices';
+// import ListDevices from 'containers/ListDevices';
 import { getAvailableDevices, getUser } from 'services/session/actions';
 import {
   selectUserCountry,
@@ -20,6 +19,7 @@ import {
   CardStyled,
   ContainerStyled,
   CountryText,
+  ImageStyled,
   NameText,
   TextContainer,
 } from './styles';
@@ -50,13 +50,17 @@ function UserCard({ onAnimationEnd }) {
       {!loading && (
         <CardStyled onAnimationEnd={onAnimationEnd}>
           <ContainerStyled>
-            <Image size={200} src={src} type="circle" />
+            <ImageStyled
+              size={200}
+              src={src}
+              type="circle"
+            />
             <TextContainer>
               <NameText>{name}</NameText>
               <CountryText>{country}</CountryText>
             </TextContainer>
           </ContainerStyled>
-          <ListDevices devices={devices} />
+          {/* {false && <ListDevices devices={devices} />} */}
         </CardStyled>
       )}
     </>

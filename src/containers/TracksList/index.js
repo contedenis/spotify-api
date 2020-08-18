@@ -11,10 +11,7 @@ import {
   getTracksList,
 } from 'services/tracksList/actions';
 import { putPlay } from 'services/playing/actions';
-import Image from 'components/Image';
 import InfiniteScroll from 'components/InfiniteScroll';
-import Spinner from 'components/Spinner';
-import Text from 'components/Text';
 import player from 'assets/images/player.svg';
 import useQuery from 'hooks/useQuery';
 import {
@@ -29,9 +26,12 @@ import PlayIcon from './PlayIcon';
 import {
   Container,
   Content,
+  EmptyImageStyled,
   EmptyState,
   EmptyStateText,
   ImageStyled,
+  SpinnerStyled,
+  TextStyled,
   Track,
   TrackContainer,
   TrackContent,
@@ -86,7 +86,7 @@ function TracksList({
   return (
     <TracksListStyled>
       <Container loading={isLoading}>
-        <Spinner loading={isLoading}>
+        <SpinnerStyled loading={isLoading}>
           {id && hasTracks ? (
             <Content>
               <ImageStyled src={hasTracks && tracksList.images[0].url} size={400} />
@@ -98,14 +98,10 @@ function TracksList({
                   scrollableTarget="MAIN_ID"
                 >
                   {tracksList.tracks.map((track) => (
-                    <Track
-                      onMouseLeave={() => setTrackId(null)}
-                      onMouseOver={() => setTrackId(track.id)}
-                      onClick={() => play(track)}
-                    >
+                    <Track onClick={() => { setTrackId(track.id); play(track); }}>
                       <PlayIcon track={track} trackId={trackId} />
                       <TrackContent>
-                        <Text ellipsis type="h3" size={24}>{track.name}</Text>
+                        <TextStyled ellipsis type="h3" size={24}>{track.name}</TextStyled>
                         <Artists track={track} />
                       </TrackContent>
                     </Track>
@@ -115,11 +111,11 @@ function TracksList({
             </Content>
           ) : (
             <EmptyState>
-              <Image src={player} size={300} />
+              <EmptyImageStyled src={player} size={300} />
               <EmptyStateText type="h5" size={24}>no tracks found</EmptyStateText>
             </EmptyState>
           )}
-        </Spinner>
+        </SpinnerStyled>
       </Container>
     </TracksListStyled>
   );

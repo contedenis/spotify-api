@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 
 // @app
 import Image from 'components/Image';
+import Spinner from 'components/Spinner';
 import Text from 'components/Text';
 
 const TracksListStyled = styled.div`
@@ -10,6 +11,11 @@ const TracksListStyled = styled.div`
   display: flex;
   flex: 1;
   width: 65%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-top: 20px;
+  }
 `;
 
 const Container = styled.div`
@@ -18,6 +24,10 @@ const Container = styled.div`
   display: flex;
   height: 400px;
   width: 100%;
+
+  @media (max-width: 768px) {
+    height: 100%;
+  }
 `;
 
 const ContentAnimation = keyframes`
@@ -45,6 +55,10 @@ const Track = styled.div`
   &:hover {
     background: radial-gradient(circle, rgba(0,0,0, 1) 25%, rgba(255,255,255,0) 100%);
   }
+
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 `;
 
 const TrackContent = styled.div`
@@ -52,11 +66,20 @@ const TrackContent = styled.div`
   flex-direction: column;
   margin-left: 20px;
   max-width: 600px;
+
+  @media (max-width: 768px) {
+    margin-left: 10px;
+    overflow: hidden;
+  }
 `;
 
 const ImageStyled = styled(Image)`
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const TrackContainer = styled.div`
@@ -70,6 +93,23 @@ const TrackContainer = styled.div`
 
     &::-webkit-scrollbar {
       width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      background : rgb(255, 255, 255, .1);
+      border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background : rgb(0,255,255,0.8);
+      border-radius: 10px;
+      box-shadow:  0 0 6px rgba(0, 0, 0, 0.5);
+    } 
+  }
+
+  @media (max-width: 768px) {
+    overflow: overlay;
+
+    &::-webkit-scrollbar {
+      width: 4px;
     }
     &::-webkit-scrollbar-track {
       background : rgb(255, 255, 255, .1);
@@ -97,18 +137,47 @@ const EmptyState = styled.div`
   justify-content: center;
   margin: 0 auto;
   width: fit-content;
+
+  @media (max-width: 768px) {
+    animation: unset;
+    height: 200px;
+  }
 `;
 
 const EmptyStateText = styled(Text)`
   font-weight: normal;
 `;
 
+const TextStyled = styled(Text)`
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+`;
+
+const EmptyImageStyled = styled(Image)`
+  @media (max-width: 768px) {
+    min-height: 100px;
+    min-width: 100px;
+    max-height: 100px;
+    max-width: 100px;
+  }
+`;
+
+const SpinnerStyled = styled(Spinner)`
+  @media (max-width: 768px) {
+    height: 200px;
+  }
+`;
+
 export {
   Container,
   Content,
+  EmptyImageStyled,
   EmptyState,
   EmptyStateText,
   ImageStyled,
+  SpinnerStyled,
+  TextStyled,
   Track,
   TrackContainer,
   TrackContent,

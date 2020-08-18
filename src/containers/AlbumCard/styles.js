@@ -19,6 +19,12 @@ const AlbumCardStyled = styled(Link)`
   &:last-child {
     margin-right: 0;
   }
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+  }
 `;
 
 const TrackName = styled(Text)`
@@ -27,10 +33,20 @@ const TrackName = styled(Text)`
   text-overflow: ellipsis;
   text-shadow: 2px 2px 2px rgba(0,0,0, 0.2);
   white-space: nowrap;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    padding: 10px 10px 0 10px;
+  }
 `;
 
 const AlbumName = styled(TrackName)`
   margin-top: 5px;
+
+  @media (max-width: 768px) {
+    font-size: 10px;
+    padding: 0 10px 10px 10px;
+  }
 `;
 
 export const ImageAnimated = keyframes`
@@ -46,15 +62,29 @@ export const ImageAnimated = keyframes`
 const ImageStyled = styled(Image)`
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  width: 100px;
 
   &:hover {
     animation: ${ImageAnimated} .5s ease-in;
+  }
+
+  @media (max-width: 768px) {
+    min-height: unset;
+    min-width: unset;
+    max-height: unset;
+    max-width: unset;
+    width: 100px;
   }
 `;
 
 const TextContent = styled.div`
   overflow: hidden;
   padding: 10px 10px 20px 10px;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    padding: 0;
+  }
 `;
 
 export {

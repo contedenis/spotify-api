@@ -44,7 +44,7 @@ function removeDuplicate(list) {
     }
     return acc;
   }, []);
-  return listFiltered.slice(0, 7);
+  return listFiltered.slice(0, 20);
 }
 
 export default function reducer(state = initialState, { type, payload }) {

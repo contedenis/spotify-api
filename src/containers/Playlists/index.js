@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 
 // @app
-import Text from 'components/Text';
 import {
   selectPlaylistsLoading,
   selectPlaylists,
@@ -16,13 +15,14 @@ import { DEFAULT_PARAMS } from 'services/playlists/constants';
 // @own
 import {
   CardContainer,
-  FlipCard,
-  FlipCardFront,
-  FlipCardInner,
-  FlipCardBack,
   ContentImage,
   ContentText,
+  FlipCard,
+  FlipCardBack,
+  FlipCardFront,
+  FlipCardInner,
   ListContainer,
+  TextStyled,
 } from './styles';
 
 function Playlists({
@@ -38,7 +38,9 @@ function Playlists({
 
   return (
     <ListContainer onAnimationEnd={onAnimationEnd}>
-      <Text type="h3" size={42}>Playlists</Text>
+      <TextStyled type="h3" size={42}>
+        Playlists
+      </TextStyled>
       <CardContainer>
         {!isLoading && list && list.length > 0 && list.map((item) => (
           <FlipCard key={item.id} to={`${path}/playlist?id=${item.id}`}>

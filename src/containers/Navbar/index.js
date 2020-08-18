@@ -4,13 +4,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // @app
-import Image from 'components/Image';
 import {
   selectUserFetching,
   selectUserImage,
   selectUserName,
 } from 'services/session/selectors';
-import Spinner from 'components/Spinner';
 import useClickOutside from 'hooks/useClickOutside';
 import { initLogoutProcess } from 'services/session/actions';
 import { useAuthContext } from 'components/Context/Auth';
@@ -18,10 +16,12 @@ import { useAuthContext } from 'components/Context/Auth';
 // @own
 import {
   Chip,
-  NavbarStyled,
+  ImageStyled,
   NameText,
+  NavbarStyled,
   Popup,
   PopupText,
+  SpinnerStyled,
 } from './styles';
 
 function Navbar({
@@ -46,10 +46,10 @@ function Navbar({
   return (
     <NavbarStyled>
       <Chip onClick={handleOnChipClick}>
-        <Spinner loading={loading} size={15}>
-          <Image src={src} size={30} type="circle" />
+        <SpinnerStyled loading={loading} size={15}>
+          <ImageStyled src={src} size={30} type="circle" />
           <NameText>{name}</NameText>
-        </Spinner>
+        </SpinnerStyled>
       </Chip>
       {open && (
         <Popup onClick={handleOnClick} ref={navbarRef}>
