@@ -29,6 +29,7 @@ module.exports = {
     "import/prefer-default-export": 0,
     "no-shadow": 0,
     "jsx-a11y/mouse-events-have-key-events": 0,
+    "react-hooks/exhaustive-deps": 0
   },
   settings: {
     "import/resolver": {
