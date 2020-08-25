@@ -4,7 +4,6 @@ export const FAIL = 'FAIL';
 export const LOGGED_IN = 'LOGGED_IN';
 export const LOGGED_OUT = 'LOGGED_OUT';
 export const REDIRECCION_ERROR = 'There was an error during the redirection';
-export const REDIRECT_URI = 'http://localhost:3000';
 export const SCOPE = `
   playlist-read-collaborative
   playlist-read-private

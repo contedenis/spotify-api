@@ -2,12 +2,14 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import { cloneDeep } from 'lodash';
 
+// @app
+import { baseUrl } from 'utils/requestHelper';
+
 // @own
 import {
   AUTHENTICATION_ERROR,
   CLIENT_ID,
   REDIRECCION_ERROR,
-  REDIRECT_URI,
   SCOPE,
 } from './constants';
 import {
@@ -45,7 +47,7 @@ export function* initLoginProcessWorker({ payload: { state, stateKey } }) {
     ?response_type=token\
     &client_id=${encodeURIComponent(CLIENT_ID)}\
     &scope=${encodeURIComponent(SCOPE)}\
-    &redirect_uri=${encodeURIComponent(`${REDIRECT_URI}`)}\
+    &redirect_uri=${encodeURIComponent(`${baseUrl}`)}\
     &state=${encodeURIComponent(state)}`.replace(/\s/g, '');
 
     window.location = url;
