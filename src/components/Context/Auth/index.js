@@ -3,6 +3,7 @@ import React, {
   createContext,
   useContext,
   useEffect,
+  useLayoutEffect,
   useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
@@ -20,7 +21,7 @@ function AuthProvider(props) {
   const dispatch = useDispatch();
   const token = localStorage.getItem('token');
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (token) {
       dispatch(loginSuccess());
       setAuthStatus(true);

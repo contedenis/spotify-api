@@ -37,7 +37,7 @@ import {
   putCurrentDevice,
 } from './api';
 
-export function* initLoginProcessWorker({ payload: { location, state, stateKey } }) {
+export function* initLoginProcessWorker({ payload: { state, stateKey } }) {
   try {
     localStorage.setItem(stateKey, state);
 
@@ -45,7 +45,7 @@ export function* initLoginProcessWorker({ payload: { location, state, stateKey }
     ?response_type=token\
     &client_id=${encodeURIComponent(CLIENT_ID)}\
     &scope=${encodeURIComponent(SCOPE)}\
-    &redirect_uri=${encodeURIComponent(`${REDIRECT_URI}${location}`)}\
+    &redirect_uri=${encodeURIComponent(`${REDIRECT_URI}`)}\
     &state=${encodeURIComponent(state)}`.replace(/\s/g, '');
 
     window.location = url;
@@ -72,7 +72,7 @@ export function* endLoginProcessWorker({ payload: { hash, stateKey, onLogin } })
         return newItem;
       }, {});
 
-    window.location.hash = '';
+    window.location.assign('/');
     const { access_token: accessToken, state } = params;
     const storedState = localStorage.getItem(stateKey);
 
@@ -102,8 +102,9 @@ export function* initLogoutProcessWorker({ payload: { key, onLogout } }) {
 
     if (token) {
       localStorage.removeItem(key);
-      yield put(logoutSuccess());
+      window.history.pushState({}, document.title, '');
       onLogout();
+      yield put(logoutSuccess());
     } else {
       throw new Error(`${key} was not found`);
     }

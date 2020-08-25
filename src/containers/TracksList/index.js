@@ -65,9 +65,9 @@ function TracksList({
       offset: newOffset,
     };
 
-    if (pathname === '/me/recent-played') {
+    if (pathname === '/recent-played') {
       getTracksList({ id, nextPage, params });
-    } else if (pathname === '/me/playlist') {
+    } else if (pathname === '/playlist') {
       getPlaylistTracks({ id, nextPage, params });
     }
   }
@@ -79,9 +79,11 @@ function TracksList({
     }
   }, [id]);
 
-  function play() {
-    putPlay({ trackId });
-  }
+  useEffect(() => {
+    if (trackId) {
+      putPlay({ trackId });
+    }
+  }, [trackId]);
 
   return (
     <TracksListStyled>
@@ -98,7 +100,7 @@ function TracksList({
                   scrollableTarget="MAIN_ID"
                 >
                   {tracksList.tracks.map((track) => (
-                    <Track onClick={() => { setTrackId(track.id); play(track); }}>
+                    <Track onClick={() => { setTrackId(track.id); }}>
                       <PlayIcon track={track} trackId={trackId} />
                       <TrackContent>
                         <TextStyled ellipsis type="h3" size={24}>{track.name}</TextStyled>

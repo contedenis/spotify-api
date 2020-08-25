@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useRouteMatch } from 'react-router-dom';
 
 // @app
 import {
@@ -31,7 +30,6 @@ function Playlists({
   list,
   onAnimationEnd,
 }) {
-  const { path } = useRouteMatch();
   useEffect(() => {
     getPlaylists({ params: DEFAULT_PARAMS });
   }, []);
@@ -43,7 +41,7 @@ function Playlists({
       </TextStyled>
       <CardContainer>
         {!isLoading && list && list.length > 0 && list.map((item) => (
-          <FlipCard key={item.id} to={`${path}/playlist?id=${item.id}`}>
+          <FlipCard key={item.id} to={`/playlist?id=${item.id}`}>
             <FlipCardInner>
               <FlipCardFront>
                 <ContentImage

@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 
 // @app
 import * as actions from 'services/session/actions';
@@ -22,7 +21,6 @@ function Login({
   initLogoutProcess,
 }) {
   const { authStatus, onLogin, onLogout } = useAuthContext();
-  const { pathname } = useLocation();
   const state = generateRandomString(16);
   const stateKey = SPOTIFY_STATE;
 
@@ -34,7 +32,7 @@ function Login({
   }, [endLoginProcess, stateKey]);
 
   function handleLoginClick() {
-    initLoginProcess({ state, stateKey, location: pathname });
+    initLoginProcess({ state, stateKey });
   }
 
   function handleLogOutClick() {

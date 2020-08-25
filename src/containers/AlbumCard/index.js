@@ -1,7 +1,6 @@
 // @packages
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useRouteMatch } from 'react-router-dom';
 
 // @own
 import {
@@ -18,9 +17,8 @@ function AlbumCard({
   src,
   trackName,
 }) {
-  const { path } = useRouteMatch();
   return (
-    <AlbumCardStyled to={`${path}/recent-played?id=${albumId}`}>
+    <AlbumCardStyled to={`/recent-played?id=${albumId}`}>
       <ImageStyled
         size={150}
         src={src}

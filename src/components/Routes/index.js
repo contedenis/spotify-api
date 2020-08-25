@@ -8,9 +8,9 @@ import PrivateRoute from 'components/PrivateRoute';
 
 function Routes() {
   const meRoutes = [
-    '/me',
-    '/me/playlists/:id',
-    '/me/recent-played/:id',
+    '/',
+    '/playlists/:id',
+    '/recent-played/:id',
   ];
   return (
     <Switch>

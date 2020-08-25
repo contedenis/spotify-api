@@ -19,11 +19,10 @@ import {
   SET_DEVICE_ID,
 } from './actionTypes';
 
-function initLoginProcess({ location, state, stateKey }) {
+function initLoginProcess({ state, stateKey }) {
   return {
     type: INIT_LOGIN_PROCESS,
     payload: {
-      location,
       state,
       stateKey,
     },

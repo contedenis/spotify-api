@@ -1,14 +1,14 @@
 // @packages
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // @app
 // import ListDevices from 'containers/ListDevices';
 import { getAvailableDevices, getUser } from 'services/session/actions';
 import {
   selectUserCountry,
-  selectUserDevices,
+  // selectUserDevices,
   selectUserFetching,
   selectUserImage,
   selectUserName,
@@ -27,7 +27,7 @@ import {
 function UserCard({ onAnimationEnd }) {
   const dispatch = useDispatch();
   const country = useSelector(selectUserCountry);
-  const devices = useSelector(selectUserDevices, shallowEqual);
+  // const devices = useSelector(selectUserDevices, shallowEqual);
   const loading = useSelector(selectUserFetching);
   const name = useSelector(selectUserName);
   const src = useSelector(selectUserImage);
@@ -60,7 +60,7 @@ function UserCard({ onAnimationEnd }) {
               <CountryText>{country}</CountryText>
             </TextContainer>
           </ContainerStyled>
-          {/* {false && <ListDevices devices={devices} />} */}
+          {/* <ListDevices devices={devices} /> */}
         </CardStyled>
       )}
     </>
