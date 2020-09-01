@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FullscreenVideo matches snapshot 1`] = `
+<video
+  autoplay=""
+  class="sc-AxjAm dBmncd"
+  loop=""
+  poster=""
+>
+  <source
+    type="video/webm"
+  />
+  <source
+    type="video/mp4"
+  />
+</video>
+`;

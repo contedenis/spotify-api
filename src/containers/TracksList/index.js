@@ -100,7 +100,7 @@ function TracksList({
                   scrollableTarget="MAIN_ID"
                 >
                   {tracksList.tracks.map((track) => (
-                    <Track onClick={() => { setTrackId(track.id); }}>
+                    <Track active={trackId === track.id} onClick={() => { setTrackId(track.id); }}>
                       <PlayIcon track={track} trackId={trackId} />
                       <TrackContent>
                         <TextStyled ellipsis type="h3" size={24}>{track.name}</TextStyled>

@@ -1,5 +1,5 @@
 // @packages
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 const ButtonStyled = styled.button`
   background-color: #1db954;
@@ -18,7 +18,6 @@ const ButtonStyled = styled.button`
   text-transform: uppercase;
   white-space: normal;
 `;
-
 
 export {
   ButtonStyled,

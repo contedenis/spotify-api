@@ -51,6 +51,9 @@ const Track = styled.div`
   cursor: pointer;
   display: flex;
   padding: 10px 20px;
+  ${({ active }) => active && `
+    background: radial-gradient(circle, rgba(0,0,0, 1) 25%, rgba(255,255,255,0) 100%);
+  `};
   
   &:hover {
     background: radial-gradient(circle, rgba(0,0,0, 1) 25%, rgba(255,255,255,0) 100%);

@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card matches snapshot 1`] = `
+<div
+  class="sc-AxjAm iRotJR"
+/>
+`;
+
+exports[`LoginForm matches snapshot 1`] = `
+<form
+  class=""
+>
+  <div
+    class="login-form__input"
+  >
+    <div
+      class="input-label login-form__text"
+    >
+      <label
+        class="input-label__label"
+        for="identification-text"
+        id="identification-text"
+      >
+        Email
+      </label>
+      <input
+        aria-label="Email"
+        class="input-label__input"
+        id="identification-text"
+        name="identification-text"
+        type="text"
+        value="test@test.com"
+      />
+    </div>
+  </div>
+  <button
+    class="button button--fluid button--nomargin button--nopadding login-form__button button--color-black button--size-large"
+    type="submit"
+  >
+    Login
+  </button>
+</form>
+`;

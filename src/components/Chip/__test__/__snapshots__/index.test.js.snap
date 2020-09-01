@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Chip matches snapshot 1`] = `
+<div
+  class="sc-AxirZ fTQgxe"
+>
+  <h5
+    class="sc-AxjAm hpYuPW sc-AxiKw eKkkNn"
+    color="black"
+    size="12"
+  />
+</div>
+`;

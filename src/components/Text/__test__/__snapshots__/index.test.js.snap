@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Text matches snapshot 1`] = `
+<h3
+  class="sc-AxjAm bhdljG"
+  color="white"
+  size="12"
+/>
+`;
