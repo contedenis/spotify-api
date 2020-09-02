@@ -101,7 +101,6 @@ export function* endLoginProcessWatcher() {
 export function* initLogoutProcessWorker({ payload: { key, onLogout } }) {
   try {
     const token = localStorage.getItem(key);
-
     if (token) {
       localStorage.removeItem(key);
       window.history.pushState({}, document.title, '');

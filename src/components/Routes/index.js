@@ -14,8 +14,7 @@ function Routes() {
   ];
   return (
     <Switch>
-      <PrivateRoute path={meRoutes} component={Me} />
-      <PrivateRoute exact path="/callback" component={() => <div>Hello world!</div>} />
+      <PrivateRoute exact path={meRoutes} component={Me} />
       <Route render={() => <h1>404: Page not found</h1>} />
     </Switch>
   );

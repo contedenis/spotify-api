@@ -1,44 +1,56 @@
 // @packages
 import React from 'react';
 import { Provider } from 'react-redux';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
+
+// @app
+import { AuthContext } from 'components/Context/Auth';
 
 // @own
 import Routes from '../index';
 
 const mockStore = configureStore([]);
+const customRender = (ui, { providerProps, ...renderOptions }) => render(
+  <AuthContext.Provider {...providerProps}>
+    {ui}
+  </AuthContext.Provider>,
+  renderOptions,
+);
 
 describe('render routes correctly', () => {
-  let store;
-  let component;
-  beforeEach(() => {
-    store = mockStore({});
-    component = render(
+  const store = mockStore({});
+  it('render path="/"', () => {
+    customRender(
       <Provider store={store}>
-        <MemoryRouter>
+        <MemoryRouter initialEntries={['/']}>
           <Routes />
         </MemoryRouter>
       </Provider>,
+      {
+        providerProps: {
+          value: {
+            authStatus: false,
+          },
+        },
+      },
     );
-  });
 
-  it('render path="/"', () => {
-    const { getByText } = component;
-    const linkElement = getByText(/Login to Spotify/i);
-    expect(linkElement).toBeInTheDocument();
+    const button = screen.getByRole('button', { name: /Login /i });
+    expect(button).toBeInTheDocument();
   });
 
   it('render 404', () => {
-    const { getByText } = render(
+    render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/error']}>
           <Routes />
         </MemoryRouter>
       </Provider>,
     );
-    const errorMessage = getByText(/Page not found/i);
+
+    const errorMessage = screen.getByText(/Page not found/i);
     expect(errorMessage).toBeInTheDocument();
   });
 });
