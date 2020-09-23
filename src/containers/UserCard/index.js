@@ -36,7 +36,7 @@ function UserCard({ onAnimationEnd }) {
   useEffect(() => {
     dispatch(getUser({ token }));
     dispatch(getAvailableDevices({ token }));
-  }, []);
+  }, [dispatch, token]);
 
   useEffect(() => {
     const interval = setInterval(() => {

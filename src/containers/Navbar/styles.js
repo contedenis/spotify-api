@@ -10,6 +10,7 @@ const NavbarStyled = styled.div`
   justify-content: flex-end;
   position: fixed;
   width: 100%;
+  z-index: 9999;
 
   @media (max-width: 768px) {
     position: relative;
@@ -73,12 +74,12 @@ const NameText = styled.h5`
 `;
 
 export const PopupShow = keyframes`
-  from {
+  0% {
     top: 45px;
     opacity: 0;
   }
-  to {
-    top: 50px;
+  100% {
+    top: 75px;
     opacity: 1;
   }
 `;

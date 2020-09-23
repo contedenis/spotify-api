@@ -29,7 +29,7 @@ function Login({
     if (hash) {
       endLoginProcess({ hash, stateKey, onLogin });
     }
-  }, [endLoginProcess, stateKey]);
+  }, [endLoginProcess, stateKey, onLogin]);
 
   function handleLoginClick() {
     initLoginProcess({ state, stateKey });

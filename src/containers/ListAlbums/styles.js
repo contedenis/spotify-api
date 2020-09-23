@@ -25,6 +25,7 @@ const ListContainer = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   padding: 20px 40px 20px 40px;
+  width: 100%;
 
   @media (max-width: 768px) {
     margin-top: 20px;
@@ -37,10 +38,14 @@ const ListContainer = styled.div`
 const CardContainer = styled.div`
   display: block;
   margin-top: 10px;
-  width: 960px;
+  margin: 20px auto 0;
+  max-width: 960px;
+  min-height: 200px;
+  width: 100%;
 
   @media (max-width: 768px) {
     width: 100%;
+    min-height: 150px;
   }
 `;
 

@@ -10,7 +10,12 @@ import TracksList from 'containers/TracksList';
 import UserCard from 'containers/UserCard';
 
 // @own
-import { GridStyled } from './styles';
+import {
+  GridElement,
+  GridStyled,
+  ListAlbumsContainer,
+  UserCardContainer,
+} from './styles';
 
 function Me() {
   const [showRecently, setShowRecently] = useState(false);
@@ -21,10 +26,18 @@ function Me() {
     <Layout>
       <Navbar />
       <GridStyled>
-        <UserCard onAnimationEnd={() => setShowRecently(true)} />
-        {showRecently && <ListAlbums onAnimationEnd={() => setShowPlaylists(true)} />}
-        {showPlaylists && <Playlists onAnimationEnd={() => setShowTracklist(true)} />}
-        {showTracklist && <TracksList />}
+        <GridElement showRecently={showRecently}>
+          <UserCardContainer>
+            <UserCard onAnimationEnd={() => setShowRecently(true)} />
+          </UserCardContainer>
+          <ListAlbumsContainer>
+            {showRecently && <ListAlbums onAnimationEnd={() => setShowPlaylists(true)} />}
+          </ListAlbumsContainer>
+        </GridElement>
+        <GridElement>
+          {showPlaylists && <Playlists onAnimationEnd={() => setShowTracklist(true)} />}
+          {showTracklist && <TracksList />}
+        </GridElement>
       </GridStyled>
     </Layout>
   );

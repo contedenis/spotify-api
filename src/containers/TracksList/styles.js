@@ -7,6 +7,7 @@ import Spinner from 'components/Spinner';
 import Text from 'components/Text';
 
 const TracksListStyled = styled.div`
+  align-items: center;
   align-items: flex-end;
   display: flex;
   flex: 1;
@@ -93,6 +94,7 @@ const TrackContainer = styled.div`
 
   &:hover {
     overflow: overlay;
+    scroll-behavior: smooth;
 
     &::-webkit-scrollbar {
       width: 8px;
@@ -110,6 +112,7 @@ const TrackContainer = styled.div`
 
   @media (max-width: 768px) {
     overflow: overlay;
+    scroll-behavior: smooth;
 
     &::-webkit-scrollbar {
       width: 4px;

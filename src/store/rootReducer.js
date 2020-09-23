@@ -8,6 +8,7 @@ import playlists from 'services/playlists/reducer';
 import tracksList from 'services/tracksList/reducer';
 import playing from 'services/playing/reducer';
 import track from 'services/track/reducer';
+import authError from 'services/authError/reducer';
 
 const appReducer = combineReducers({
   session,
@@ -16,6 +17,7 @@ const appReducer = combineReducers({
   tracksList,
   playing,
   track,
+  authError,
 });
 
 const rootReducer = (state, action) => appReducer(state, action);

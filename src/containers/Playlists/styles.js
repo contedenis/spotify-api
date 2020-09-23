@@ -34,16 +34,22 @@ const ListContainer = styled.div`
 `;
 
 const CardContainer = styled.div`
+  background-color: rgb(0,0,0,.5);
+  border-radius: 5px;
   display: flex;
   flex-wrap: wrap;
-  max-height: 355px;
+  justify-content: center;
   margin-top: 10px;
-  width: 100%;
+  max-height: 355px;
   overflow: hidden;
+  padding: 20px 0;
   transitions: all 2s ease-in;
+  width: 100%;
+}
 
   &:hover {
     overflow: overlay;
+    scroll-behavior: smooth;
 
     &::-webkit-scrollbar {
       width: 8px;
@@ -61,6 +67,7 @@ const CardContainer = styled.div`
 
   @media (max-width: 768px) {
     overflow: overlay;
+    scroll-behavior: smooth;
 
     &::-webkit-scrollbar {
       width: 4px;

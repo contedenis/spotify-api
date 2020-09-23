@@ -6,6 +6,9 @@ import {
   takeLatest,
 } from 'redux-saga/effects';
 
+// @app
+import { setAuthError } from 'services/authError/actions';
+
 import {
   GET_TRACKSLIST,
   GET_PLAYLIST_TRACKS,
@@ -25,8 +28,9 @@ export function* getTracksListWorker({ payload: { id, nextPage, params } }) {
   try {
     const payload = yield call(getTracksList, id, params);
     yield put(getTracksListSuccess({ tracksList: payload, nextPage }));
-  } catch ({ message }) {
+  } catch ({ message, serverError }) {
     yield put(getTracksListFail({ errorMessage: message }));
+    yield put(setAuthError({ status: serverError }));
   }
 }
 
@@ -51,8 +55,9 @@ export function* getPlaylistTracksWorker({ payload: { id, nextPage, params } }) 
     };
 
     yield put(getPlaylistTracksSuccess({ tracksList: playlistTracks, nextPage }));
-  } catch ({ message }) {
+  } catch ({ message, serverError }) {
     yield put(getPlaylistTracksFail({ errorMessage: message }));
+    yield put(setAuthError({ status: serverError }));
   }
 }
 

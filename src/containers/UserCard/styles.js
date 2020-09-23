@@ -19,6 +19,7 @@ const CardStyled = styled.div`
   animation: ${CardShow} .8s ease-out;
   background: transparent;
   padding: 20px 40px 20px 40px;
+  width: 100%;
 
   @media (max-width: 480px) {
     padding: 0;
@@ -28,8 +29,8 @@ const CardStyled = styled.div`
 const ContainerStyled = styled.div`
   display: flex;
   min-height: 200px;
-  min-width: 500px;
   padding: 20px;
+  width: 100%;
 
   @media (max-width: 480px) {
     padding: 0;

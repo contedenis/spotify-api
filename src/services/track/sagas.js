@@ -1,6 +1,9 @@
 // @packages
 import { put, takeLatest, call } from 'redux-saga/effects';
 
+// @app
+import { setAuthError } from 'services/authError/actions';
+
 import {
   GET_TRACK,
 } from './actionTypes';
@@ -18,8 +21,9 @@ export function* getTrackWorker({ payload: { trackId } }) {
   try {
     const payload = yield call(getTrackApi, trackId);
     yield put(getTrackSuccess({ track: payload.data }));
-  } catch ({ message }) {
+  } catch ({ message, serverError }) {
     yield put(getTrackFail({ errorMessage: message }));
+    yield put(setAuthError({ status: serverError }));
   }
 }
 

@@ -1,6 +1,9 @@
 // @packages
 import { put, takeLatest, call } from 'redux-saga/effects';
 
+// @app
+import { setAuthError } from 'services/authError/actions';
+
 import {
   GET_PLAYLISTS,
 } from './actionTypes';
@@ -16,8 +19,9 @@ export function* getPlaylistsWorker({ payload: { params } }) {
   try {
     const payload = yield call(getPlaylists, params);
     yield put(getPlaylistsSuccess({ list: payload.items }));
-  } catch ({ message }) {
+  } catch ({ message, serverError }) {
     yield put(getPlaylistsFail({ errorMessage: message }));
+    yield put(setAuthError({ status: serverError }));
   }
 }
 

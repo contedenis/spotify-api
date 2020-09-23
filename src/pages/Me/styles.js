@@ -3,10 +3,10 @@ import styled from 'styled-components';
 
 const GridStyled = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  padding: 80px 20px 0 20px;
-  width: calc(100% - 40px);
+  align-items: center;
+  flex-direction: column;
+  padding: 80px 20px 20px 20px;
+  width: 100%;
 
   @media (max-width: 720px) {
     flex-direction: column;
@@ -15,4 +15,42 @@ const GridStyled = styled.div`
   }
 `;
 
-export { GridStyled };
+const GridElement = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  ${({ showRecently }) => (showRecently && `
+    justify-content: center;
+  `)};
+
+  @media (max-width: 720px) {
+    width: 100%;
+    flex-direction: column;
+    justify-content: unset;
+    flex-wrap: nowrap;
+    padding: 20px;
+  }
+`;
+
+const UserCardContainer = styled.div`
+  width: 35%
+
+  @media (max-width: 720px) {
+    width: 100%;
+  }
+`;
+
+const ListAlbumsContainer = styled.div`
+  width: 65%;
+
+  @media (max-width: 720px) {
+    width: 100%;
+  }
+`;
+
+export {
+  GridElement,
+  GridStyled,
+  UserCardContainer,
+  ListAlbumsContainer,
+};

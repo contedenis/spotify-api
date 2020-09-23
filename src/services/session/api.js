@@ -9,7 +9,8 @@ export function getUser(token) {
       Authorization: `Bearer ${token}`,
     },
   })
-    .then(({ data }) => data);
+    .then(({ data }) => data)
+    .catch(errorHandler);
 }
 
 export function getAvailableDevices(token) {

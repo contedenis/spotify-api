@@ -1,0 +1,2 @@
+export const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
+export const RESET_AUTH_ERROR = 'RESET_AUTH_ERROR';

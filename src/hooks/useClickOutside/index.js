@@ -13,7 +13,7 @@ function useClickOutside(ref, cb) {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [ref]);
+  }, [ref, cb]);
 }
 
 export default useClickOutside;

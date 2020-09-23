@@ -8,6 +8,7 @@ const LayoutStyled = styled.div`
   flex-direction: column;
   height: ${({ logIn }) => (logIn && '100vh')};
   justify-content: ${({ logIn }) => (logIn && 'center')};
+  width: 100%;
 `;
 
 export { LayoutStyled };

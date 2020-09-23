@@ -40,7 +40,7 @@ function useSpotifySDK({ token }) {
         player.connect();
       };
     }
-  }, [loaded]);
+  }, [loaded, error, token]);
 
   return deviceId;
 }

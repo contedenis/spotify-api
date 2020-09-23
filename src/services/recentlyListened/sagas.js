@@ -1,6 +1,9 @@
 // @packages
 import { put, takeLatest, call } from 'redux-saga/effects';
 
+// @app
+import { setAuthError } from 'services/authError/actions';
+
 import {
   GET_RECENTLY_LISTENED,
 } from './actionTypes';
@@ -16,8 +19,9 @@ export function* getRecentlyListenedWorker({ payload: { params } }) {
   try {
     const payload = yield call(getRecentlyListened, params);
     yield put(getRecentlyListenedSuccess({ list: payload }));
-  } catch ({ message }) {
+  } catch ({ message, serverError }) {
     yield put(getRecentlyListenedFail({ errorMessage: message }));
+    yield put(setAuthError({ status: serverError }));
   }
 }
 

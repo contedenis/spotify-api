@@ -28,7 +28,7 @@ function ListAlbums({
 }) {
   useEffect(() => {
     getRecentlyListened({ params: DEFAULT_PARAMS });
-  }, []);
+  }, [getRecentlyListened]);
 
   const settings = {
     dots: false,

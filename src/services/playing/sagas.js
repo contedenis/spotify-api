@@ -15,6 +15,7 @@ import { getTrack } from 'services/track/actions';
 import { putCurrentDevice } from 'services/session/actions';
 import { selectContextUriTrack, selectTrackNumber } from 'services/track/selectors';
 import { selectDeviceId, selectUserDevices } from 'services/session/selectors';
+import { setAuthError } from 'services/authError/actions';
 
 // @own
 import { PUT_PLAY } from './actionTypes';
@@ -42,8 +43,9 @@ export function* putPlayWorker({ payload: { trackId } }) {
       const payload = yield call(putPlay, uri, trackNumber);
       yield put(putPlaySuccess({ result: payload }));
     }
-  } catch ({ message }) {
+  } catch ({ message, serverError }) {
     yield put(putPlayFail({ errorMessage: message }));
+    yield put(setAuthError({ status: serverError }));
   }
 }
 

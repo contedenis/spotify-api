@@ -10,6 +10,7 @@ import {
 } from 'services/playlists/selectors';
 import * as actions from 'services/playlists/actions';
 import { DEFAULT_PARAMS } from 'services/playlists/constants';
+import Spinner from 'components/Spinner';
 
 // @own
 import {
@@ -32,7 +33,7 @@ function Playlists({
 }) {
   useEffect(() => {
     getPlaylists({ params: DEFAULT_PARAMS });
-  }, []);
+  }, [getPlaylists]);
 
   return (
     <ListContainer onAnimationEnd={onAnimationEnd}>
@@ -40,22 +41,24 @@ function Playlists({
         Playlists
       </TextStyled>
       <CardContainer>
-        {!isLoading && list && list.length > 0 && list.map((item) => (
-          <FlipCard key={item.id} to={`/playlist?id=${item.id}`}>
-            <FlipCardInner>
-              <FlipCardFront>
-                <ContentImage
-                  alt={item.type}
-                  src={item.images[0].url}
-                  size={150}
-                />
-              </FlipCardFront>
-              <FlipCardBack>
-                <ContentText type="h5" size={16}>{item.name}</ContentText>
-              </FlipCardBack>
-            </FlipCardInner>
-          </FlipCard>
-        ))}
+        <Spinner loading={isLoading}>
+          {!isLoading && list && list.length > 0 && list.map((item) => (
+            <FlipCard key={item.id} to={`/playlist?id=${item.id}`}>
+              <FlipCardInner>
+                <FlipCardFront>
+                  <ContentImage
+                    alt={item.type}
+                    src={item.images[0].url}
+                    size={150}
+                  />
+                </FlipCardFront>
+                <FlipCardBack>
+                  <ContentText type="h5" size={16}>{item.name}</ContentText>
+                </FlipCardBack>
+              </FlipCardInner>
+            </FlipCard>
+          ))}
+        </Spinner>
       </CardContainer>
     </ListContainer>
   );

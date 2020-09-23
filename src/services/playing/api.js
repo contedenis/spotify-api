@@ -1,6 +1,6 @@
 // @packages
 import { spotifyApi } from 'utils/requestHelper';
-// import { errorHandler } from 'utils/errorHandler';
+import { errorHandler } from 'utils/errorHandler';
 
 export function putPlay(contextUri, trackNumber) {
   const token = localStorage.getItem('token');
@@ -19,5 +19,5 @@ export function putPlay(contextUri, trackNumber) {
     },
   })
     .then(({ data }) => ({ data }))
-    .catch((error) => console.log(error));
+    .catch(errorHandler);
 }
