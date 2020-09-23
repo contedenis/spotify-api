@@ -1,5 +1,5 @@
 // @packages
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -56,31 +56,28 @@ function TracksList({
   const id = query.get('id') || null;
   const hasTracks = tracksList && tracksList.tracks && tracksList.tracks.length > 0;
 
-  const getAction = useCallback(
-    (nextPage) => {
-      const newOffset = nextPage
-        ? offset + DEFAULT_PARAMS.limit
-        : DEFAULT_PARAMS.offset;
-      const params = {
-        ...DEFAULT_PARAMS,
-        offset: newOffset,
-      };
+  function getAction(nextPage) {
+    const newOffset = nextPage
+      ? offset + DEFAULT_PARAMS.limit
+      : DEFAULT_PARAMS.offset;
+    const params = {
+      ...DEFAULT_PARAMS,
+      offset: newOffset,
+    };
 
-      if (pathname === '/recent-played') {
-        getTracksList({ id, nextPage, params });
-      } else if (pathname === '/playlist') {
-        getPlaylistTracks({ id, nextPage, params });
-      }
-    },
-    [],
-  );
+    if (pathname === '/recent-played') {
+      getTracksList({ id, nextPage, params });
+    } else if (pathname === '/playlist') {
+      getPlaylistTracks({ id, nextPage, params });
+    }
+  }
 
   useEffect(() => {
     if (id) {
       cleanTracksList();
       getAction();
     }
-  }, [id, cleanTracksList, getAction]);
+  }, [id]);
 
   useEffect(() => {
     if (trackId) {
