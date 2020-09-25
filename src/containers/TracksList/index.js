@@ -1,7 +1,6 @@
 // @packages
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 // @app
@@ -40,21 +39,17 @@ import {
 import Artists from './Artists';
 import { DEFAULT_PARAMS } from './constants';
 
-function TracksList({
-  cleanTracksList,
-  getPlaylistTracks,
-  getTracksList,
-  isLoading,
-  offset,
-  putPlay,
-  total,
-  tracksList,
-}) {
+function TracksList() {
   const [trackId, setTrackId] = useState(false);
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
   const query = useQuery();
   const id = query.get('id') || null;
+  const tracksList = useSelector(selectTracksList);
   const hasTracks = tracksList && tracksList.tracks && tracksList.tracks.length > 0;
+  const isLoading = useSelector(selectTracksListLoading);
+  const offset = useSelector(selectTrackListOffset);
+  const total = useSelector(selectTracksListTotal);
 
   function getAction(nextPage) {
     const newOffset = nextPage
@@ -66,22 +61,22 @@ function TracksList({
     };
 
     if (pathname === '/recent-played') {
-      getTracksList({ id, nextPage, params });
+      dispatch(getTracksList({ id, nextPage, params }));
     } else if (pathname === '/playlist') {
-      getPlaylistTracks({ id, nextPage, params });
+      dispatch(getPlaylistTracks({ id, nextPage, params }));
     }
   }
 
   useEffect(() => {
     if (id) {
-      cleanTracksList();
+      dispatch(cleanTracksList());
       getAction();
     }
   }, [id]);
 
   useEffect(() => {
     if (trackId) {
-      putPlay({ trackId });
+      dispatch(putPlay({ trackId }));
     }
   }, [trackId, putPlay]);
 
@@ -123,34 +118,4 @@ function TracksList({
   );
 }
 
-TracksList.defaultProps = {
-  isLoading: false,
-  offset: 0,
-  total: 0,
-  tracksList: [],
-};
-
-TracksList.propTypes = {
-  cleanTracksList: PropTypes.func.isRequired,
-  getPlaylistTracks: PropTypes.func.isRequired,
-  getTracksList: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool,
-  offset: PropTypes.number,
-  putPlay: PropTypes.func.isRequired,
-  total: PropTypes.number,
-  tracksList: PropTypes.array,
-};
-
-const mapStateToProps = (state) => ({
-  isLoading: selectTracksListLoading(state),
-  offset: selectTrackListOffset(state),
-  total: selectTracksListTotal(state),
-  tracksList: selectTracksList(state),
-});
-
-export default connect(mapStateToProps, {
-  cleanTracksList,
-  getPlaylistTracks,
-  getTracksList,
-  putPlay,
-})(TracksList);
+export default TracksList;

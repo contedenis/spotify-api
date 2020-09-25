@@ -1,7 +1,6 @@
 // @packages
 import React, { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // @app
 import {
@@ -24,19 +23,18 @@ import {
   SpinnerStyled,
 } from './styles';
 
-function Navbar({
-  initLogoutProcess,
-  loading,
-  name,
-  src,
-}) {
+function Navbar() {
   const { onLogout } = useAuthContext();
   const [open, setOpen] = useState(false);
   const navbarRef = useRef(null);
+  const dispatch = useDispatch();
+  const loading = useSelector(selectUserFetching);
+  const name = useSelector(selectUserName);
+  const src = useSelector(selectUserImage);
   useClickOutside(navbarRef, () => setOpen(false));
 
   function handleOnClick() {
-    initLogoutProcess({ key: 'token', onLogout });
+    dispatch(initLogoutProcess({ key: 'token', onLogout }));
   }
 
   function handleOnChipClick() {
@@ -62,17 +60,4 @@ function Navbar({
   );
 }
 
-Navbar.propTypes = {
-  initLogoutProcess: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
-  src: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  loading: selectUserFetching(state),
-  name: selectUserName(state),
-  src: selectUserImage(state),
-});
-
-export default connect(mapStateToProps, { initLogoutProcess })(Navbar);
+export default Navbar;

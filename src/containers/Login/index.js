@@ -1,10 +1,13 @@
 // @packages
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // @app
-import * as actions from 'services/session/actions';
+import {
+  endLoginProcess,
+  initLoginProcess,
+  initLogoutProcess,
+} from 'services/session/actions';
 import Layout from 'containers/Layout';
 import LoginButton from 'components/LoginButton';
 import generateRandomString from 'utils/generateRandomString';
@@ -15,11 +18,8 @@ import { useAuthContext } from 'components/Context/Auth';
 // @own
 import { ImageStyled, LogIn } from './styles';
 
-function Login({
-  endLoginProcess,
-  initLoginProcess,
-  initLogoutProcess,
-}) {
+function Login() {
+  const dispatch = useDispatch();
   const { authStatus, onLogin, onLogout } = useAuthContext();
   const state = generateRandomString(16);
   const stateKey = SPOTIFY_STATE;
@@ -27,16 +27,16 @@ function Login({
   useEffect(() => {
     const { hash } = window.location;
     if (hash) {
-      endLoginProcess({ hash, stateKey, onLogin });
+      dispatch(endLoginProcess({ hash, stateKey, onLogin }));
     }
   }, [endLoginProcess, stateKey, onLogin]);
 
   function handleLoginClick() {
-    initLoginProcess({ state, stateKey });
+    dispatch(initLoginProcess({ state, stateKey }));
   }
 
   function handleLogOutClick() {
-    initLogoutProcess({ key: 'token', onLogout });
+    dispatch(initLogoutProcess({ key: 'token', onLogout }));
   }
 
   return (
@@ -53,10 +53,4 @@ function Login({
   );
 }
 
-Login.propTypes = {
-  endLoginProcess: PropTypes.func.isRequired,
-  initLoginProcess: PropTypes.func.isRequired,
-  initLogoutProcess: PropTypes.func.isRequired,
-};
-
-export default connect(null, actions)(Login);
+export default Login;

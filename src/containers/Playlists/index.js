@@ -1,14 +1,14 @@
 // @packages
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // @app
 import {
   selectPlaylistsLoading,
   selectPlaylists,
 } from 'services/playlists/selectors';
-import * as actions from 'services/playlists/actions';
+import { getPlaylists } from 'services/playlists/actions';
 import { DEFAULT_PARAMS } from 'services/playlists/constants';
 import Spinner from 'components/Spinner';
 
@@ -25,14 +25,13 @@ import {
   TextStyled,
 } from './styles';
 
-function Playlists({
-  getPlaylists,
-  isLoading,
-  list,
-  onAnimationEnd,
-}) {
+function Playlists({ onAnimationEnd }) {
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectPlaylistsLoading);
+  const list = useSelector(selectPlaylists);
+
   useEffect(() => {
-    getPlaylists({ params: DEFAULT_PARAMS });
+    dispatch(getPlaylists({ params: DEFAULT_PARAMS }));
   }, [getPlaylists]);
 
   return (
@@ -64,21 +63,8 @@ function Playlists({
   );
 }
 
-Playlists.defaultProps = {
-  isLoading: false,
-  list: [],
-};
-
 Playlists.propTypes = {
-  getPlaylists: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool,
-  list: PropTypes.array,
   onAnimationEnd: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  isLoading: selectPlaylistsLoading(state),
-  list: selectPlaylists(state),
-});
-
-export default connect(mapStateToProps, actions)(Playlists);
+export default Playlists;

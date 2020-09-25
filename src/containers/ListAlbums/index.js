@@ -1,7 +1,7 @@
 // @packages
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // @app
 import AlbumCard from 'containers/AlbumCard';
@@ -9,7 +9,7 @@ import {
   selectRecentlyListenedLoading,
   selectRecentlyListened,
 } from 'services/recentlyListened/selectors';
-import * as actions from 'services/recentlyListened/actions';
+import { getRecentlyListened } from 'services/recentlyListened/actions';
 import { DEFAULT_PARAMS } from 'services/recentlyListened/constants';
 
 // @own
@@ -20,14 +20,13 @@ import {
   TextStyled,
 } from './styles';
 
-function ListAlbums({
-  getRecentlyListened,
-  isLoading,
-  list,
-  onAnimationEnd,
-}) {
+function ListAlbums({ onAnimationEnd }) {
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectRecentlyListenedLoading);
+  const list = useSelector(selectRecentlyListened);
+
   useEffect(() => {
-    getRecentlyListened({ params: DEFAULT_PARAMS });
+    dispatch(getRecentlyListened({ params: DEFAULT_PARAMS }));
   }, [getRecentlyListened]);
 
   const settings = {
@@ -68,7 +67,7 @@ function ListAlbums({
       </TextStyled>
       <CardContainer>
         <SliderStyled {...settings}>
-          {!isLoading && list.length > 0 && list.map((item) => (
+          {!isLoading && list?.map((item) => (
             <AlbumCard
               albumId={item.albumId}
               contextUri={item.albumContextUri}
@@ -84,21 +83,8 @@ function ListAlbums({
   );
 }
 
-ListAlbums.defaultProps = {
-  isLoading: false,
-  list: [],
-};
-
 ListAlbums.propTypes = {
-  getRecentlyListened: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool,
-  list: PropTypes.array,
   onAnimationEnd: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  isLoading: selectRecentlyListenedLoading(state),
-  list: selectRecentlyListened(state),
-});
-
-export default connect(mapStateToProps, actions)(ListAlbums);
+export default ListAlbums;

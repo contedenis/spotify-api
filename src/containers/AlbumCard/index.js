@@ -19,10 +19,7 @@ function AlbumCard({
 }) {
   return (
     <AlbumCardStyled to={`/recent-played?id=${albumId}`}>
-      <ImageStyled
-        size={150}
-        src={src}
-      />
+      <ImageStyled size={150} src={src} />
       <TextContent>
         <TrackName type="h4" color="white" size={16}>
           {trackName}
