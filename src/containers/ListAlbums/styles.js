@@ -36,11 +36,14 @@ const ListContainer = styled.div`
 `;
 
 const CardContainer = styled.div`
+  background-color: rgb(0,0,0,.5);
+  border-radius: 5px;
   display: block;
-  margin-top: 10px;
   margin: 20px auto 0;
-  max-width: 960px;
+  margin-top: 10px;
+  max-width: 100%;
   min-height: 200px;
+  padding: 20px 40px 10px 40px;
   width: 100%;
 
   @media (max-width: 768px) {
@@ -56,14 +59,14 @@ const TextStyled = styled(Text)`
 `;
 
 const SliderStyled = styled(Slider)`
-  padding: 0 20px;
+  padding: 0 20px 0 30px;
 
   @media (max-width: 768px) {
     padding: 0;
   }
   
   @media (max-width: 350px) {
-    padding: 0 20px;
+    padding: 0 20px 0 30px;
   }
 `;
 

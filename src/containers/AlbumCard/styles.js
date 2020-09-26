@@ -20,6 +20,10 @@ const AlbumCardStyled = styled(Link)`
     margin-right: 0;
   }
 
+  &:focus {
+    outline: none;
+  }
+
   @media (max-width: 768px) {
     display: flex;
     flex-direction: column;

@@ -1,5 +1,5 @@
 // @packages
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
@@ -10,8 +10,6 @@ import {
   getTracksList,
 } from 'services/tracksList/actions';
 import { putPlay } from 'services/playing/actions';
-import InfiniteScroll from 'components/InfiniteScroll';
-import player from 'assets/images/player.svg';
 import useQuery from 'hooks/useQuery';
 import {
   selectTrackListOffset,
@@ -19,24 +17,11 @@ import {
   selectTracksListLoading,
   selectTracksListTotal,
 } from 'services/tracksList/selectors';
-import PlayIcon from './PlayIcon';
 
 // @own
-import {
-  Container,
-  Content,
-  EmptyImageStyled,
-  EmptyState,
-  EmptyStateText,
-  ImageStyled,
-  SpinnerStyled,
-  TextStyled,
-  Track,
-  TrackContainer,
-  TrackContent,
-  TracksListStyled,
-} from './styles';
-import Artists from './Artists';
+import Content from './Content';
+import EmptyState from './EmptyState';
+import { Container, SpinnerStyled, TracksListStyled } from './styles';
 import { DEFAULT_PARAMS } from './constants';
 
 function TracksList() {
@@ -80,36 +65,31 @@ function TracksList() {
     }
   }, [trackId, putPlay]);
 
+  const onClick = useCallback(
+    (id) => setTrackId(id),
+    [],
+  );
+
+  const onNext = useCallback(
+    () => getAction(true),
+    [],
+  );
+
   return (
     <TracksListStyled>
       <Container loading={isLoading}>
         <SpinnerStyled loading={isLoading}>
           {id && hasTracks ? (
-            <Content>
-              <ImageStyled src={hasTracks && tracksList.images[0].url} size={400} />
-              <TrackContainer id="MAIN_ID">
-                <InfiniteScroll
-                  dataLength={tracksList.tracks.length}
-                  hasMore={total > tracksList.tracks.length}
-                  next={() => getAction(true)}
-                  scrollableTarget="MAIN_ID"
-                >
-                  {tracksList.tracks.map((track) => (
-                    <Track active={trackId === track.id} onClick={() => { setTrackId(track.id); }}>
-                      <PlayIcon track={track} trackId={trackId} />
-                      <TrackContent>
-                        <TextStyled ellipsis type="h3" size={24}>{track.name}</TextStyled>
-                        <Artists track={track} />
-                      </TrackContent>
-                    </Track>
-                  ))}
-                </InfiniteScroll>
-              </TrackContainer>
-            </Content>
+            <Content
+              onClick={onClick}
+              onNext={onNext}
+              total={total}
+              trackId={trackId}
+              tracksList={tracksList}
+            />
           ) : (
             <EmptyState>
-              <EmptyImageStyled src={player} size={300} />
-              <EmptyStateText type="h5" size={24}>no tracks found</EmptyStateText>
+              no tracks found
             </EmptyState>
           )}
         </SpinnerStyled>

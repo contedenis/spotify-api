@@ -2,7 +2,7 @@
 
 exports[`LoginButton matches snapshot 1`] = `
 <button
-  class="sc-AxjAm caObhp"
+  class="sc-bdnylx fCXfLs"
 >
   Login to Spotify
 </button>

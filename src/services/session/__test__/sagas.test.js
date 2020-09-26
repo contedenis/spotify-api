@@ -2,6 +2,9 @@
 import { takeLatest } from 'redux-saga/effects';
 import { runSaga } from 'redux-saga';
 
+// @app
+import { setAuthError } from 'services/authError/actions';
+
 // @own
 import {
   endLoginProcessWatcher,
@@ -126,7 +129,10 @@ describe('sagas', () => {
       mockPayload,
     ).done;
 
-    expect(dispatched).toEqual([loginFail(mockErrorMessage)]);
+    expect(dispatched).toEqual([
+      loginFail(mockErrorMessage),
+      setAuthError({ status: false }),
+    ]);
   });
 
   it('Should fire on INIT_LOGOUT_PROCESS', () => {
@@ -173,7 +179,9 @@ describe('sagas', () => {
     ).done;
 
     expect(onLogout).toHaveBeenCalledTimes(0);
-    expect(dispatched).toEqual([logoutFail({ errorMessage: 'token was not found' })]);
+    expect(dispatched).toEqual([
+      logoutFail({ errorMessage: 'token was not found' }),
+    ]);
   });
 
   it('Should fire on GET_USER', () => {
@@ -215,7 +223,10 @@ describe('sagas', () => {
       },
     ).done;
 
-    expect(dispatched).toEqual([getUserFail({ errorMessage: 'Error' })]);
+    expect(dispatched).toEqual([
+      getUserFail({ errorMessage: 'Error' }),
+      setAuthError({ status: false }),
+    ]);
   });
 
   it('Should fire on GET_AVAILABLE_DEVICES', () => {
@@ -261,7 +272,10 @@ describe('sagas', () => {
       },
     ).done;
 
-    expect(dispatched).toEqual([getAvailableDevicesFail({ errorMessage: 'Error' })]);
+    expect(dispatched).toEqual([
+      getAvailableDevicesFail({ errorMessage: 'Error' }),
+      setAuthError({ status: false }),
+    ]);
   });
 
   it('Should fire on PUT_CURRENT_DEVICE', () => {
@@ -303,6 +317,9 @@ describe('sagas', () => {
       },
     ).done;
 
-    expect(dispatched).toEqual([putCurrentDeviceFail({ errorMessage: 'Error' })]);
+    expect(dispatched).toEqual([
+      putCurrentDeviceFail({ errorMessage: 'Error' }),
+      setAuthError({ status: false }),
+    ]);
   });
 });

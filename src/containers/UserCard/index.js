@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // @app
 // import ListDevices from 'containers/ListDevices';
-import { getAvailableDevices, getUser } from 'services/session/actions';
+import {
+  getAvailableDevices,
+  getUser,
+} from 'services/session/actions';
 import {
   selectUserCountry,
   // selectUserDevices,
@@ -27,7 +30,7 @@ import {
 function UserCard({ onAnimationEnd }) {
   const dispatch = useDispatch();
   const country = useSelector(selectUserCountry);
-  // const devices = useSelector(selectUserDevices, shallowEqual);
+  // const devices = useSelector(selectUserDevices);
   const loading = useSelector(selectUserFetching);
   const name = useSelector(selectUserName);
   const src = useSelector(selectUserImage);
@@ -38,6 +41,7 @@ function UserCard({ onAnimationEnd }) {
     dispatch(getAvailableDevices({ token }));
   }, [dispatch, token]);
 
+  // Commented until development is complete to switch devices
   useEffect(() => {
     const interval = setInterval(() => {
       dispatch(getAvailableDevices({ token }));

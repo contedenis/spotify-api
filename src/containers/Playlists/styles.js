@@ -22,7 +22,7 @@ const ListContainer = styled.div`
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  padding: 20px 40px 20px 40px;
+  padding: 0 40px;
   width: 30%;
 
   @media (max-width: 768px) {

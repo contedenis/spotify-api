@@ -90,7 +90,7 @@ export function* endLoginProcessWorker({ payload: { hash, stateKey, onLogin } })
         onLogin();
       }
     }
-  } catch ({ message, serverError }) {
+  } catch ({ message, serverError = false }) {
     yield put(loginFail({ errorMessage: message }));
     yield put(setAuthError({ status: serverError }));
   }
@@ -124,7 +124,7 @@ export function* getUserWorker({ payload: { token } }) {
   try {
     const payload = yield call(getUserApi, token);
     yield put(getUserSuccess({ user: payload }));
-  } catch ({ message, serverError }) {
+  } catch ({ message, serverError = false }) {
     yield put(getUserFail({ errorMessage: message }));
     yield put(setAuthError({ status: serverError }));
   }
@@ -138,7 +138,7 @@ export function* getAvailableDevicesWorker({ payload: { token } }) {
   try {
     const payload = yield call(getAvailableDevices, token);
     yield put(getAvailableDevicesSuccess({ devices: payload }));
-  } catch ({ message, serverError }) {
+  } catch ({ message, serverError = false }) {
     yield put(getAvailableDevicesFail({ errorMessage: message }));
     yield put(setAuthError({ status: serverError }));
   }
@@ -152,7 +152,7 @@ export function* putCurrentDeviceWorker({ payload: { deviceId } }) {
   try {
     yield call(putCurrentDevice, deviceId);
     yield put(putCurrentDeviceSuccess());
-  } catch ({ message, serverError }) {
+  } catch ({ message, serverError = false }) {
     yield put(putCurrentDeviceFail({ errorMessage: message }));
     yield put(setAuthError({ status: serverError }));
   }
